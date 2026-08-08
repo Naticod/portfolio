@@ -14,12 +14,16 @@ import { d } from "@/lib/u";
 // Figma, x 1073.3–1526.3 / y 229.3–820.0) e os demais nas posições que o
 // design usava como cards decorativos. Ao navegar, cada card desliza para a
 // posição seguinte — a pilha inteira se move, não só o card da frente.
+// Os 4 cards de trás usam um tamanho padrão (228x138); só muda a posição
+// de cada um. O card em destaque (posição "0") continua no tamanho do Figma.
+const BACK_CARD_SIZE = { width: 228, height: 138 };
+
 const SLOTS = {
-  "-2": { left: 1430.7, top: 36, width: 198.3, height: 104, borderRadius: 24, borderWidth: 1 },
-  "-1": { left: 1300, top: 76, width: 200, height: 124, borderRadius: 24, borderWidth: 1 },
+  "-2": { left: 1430.7, top: 36, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
+  "-1": { left: 1300, top: 76, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
   "0": { left: 1073.3, top: 229.3, width: 453, height: 590.7, borderRadius: 28, borderWidth: 2.5 },
-  "1": { left: 1302.7, top: 830, width: 227, height: 139, borderRadius: 24, borderWidth: 1 },
-  "2": { left: 1400, top: 890, width: 240, height: 110, borderRadius: 24, borderWidth: 1 },
+  "1": { left: 1302.7, top: 830, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
+  "2": { left: 1400, top: 890, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
 };
 
 const SLOT_STYLE = {

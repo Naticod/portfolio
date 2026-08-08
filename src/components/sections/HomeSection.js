@@ -1,8 +1,12 @@
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { d } from "@/lib/u";
 
-// Figma (inicio.png): h1 x 113 y 180.3, font ~49, line-height 66.4;
-// p1 y 330 font ~32.5; p2 y 400; card x 1042.7–1507.7, y 222.7–825.0.
+// Figma (inicio.png): h1 x 113 y 180.3; foto no lugar do card
+// x 1042.7–1507.7, y 222.7–825.0.
+//
+// A bio é longa demais para o espaço do design, então a coluna de texto
+// rola dentro de si mesma — a página em si continua sem rolagem.
 export default function HomeSection() {
   const { t } = useLanguage();
 
@@ -20,28 +24,47 @@ export default function HomeSection() {
         {t.hero.greetingLine2}
       </h1>
 
-      <p
+      <div
         data-abs
-        style={d({ left: 113, top: 324, fontSize: 32.5 })}
-        className="d text-foreground/85 max-lg:mt-4 max-lg:text-[clamp(0.8rem,3.4vw,1rem)]"
+        // O h1 começa em 174 e ocupa duas linhas de 66.4 → termina em 306.8.
+        // 18px de respiro depois dele = 325.
+        style={d({ left: 113, top: 325, width: 850, height: 505 })}
+        className="bio-scroll d overflow-y-auto overscroll-contain pr-6 max-lg:mt-4 max-lg:min-h-0 max-lg:flex-1 max-lg:pr-3"
       >
-        {t.hero.text1}
-      </p>
-
-      <p
-        data-abs
-        style={d({ left: 113, top: 394, fontSize: 32.5 })}
-        className="d text-foreground/85 max-lg:mt-3 max-lg:text-[clamp(0.8rem,3.4vw,1rem)]"
-      >
-        {t.hero.text2Prefix}
-        <span className="font-bold text-foreground">{t.hero.text2Highlight}</span>
-      </p>
+        {t.hero.paragraphs.map((paragraph, index) => {
+          const isLast = index === t.hero.paragraphs.length - 1;
+          return (
+            <p
+              key={index}
+              // O último parágrafo não leva margem: os 16px sobrando no fim
+              // bastavam para o texto passar da área e criar rolagem.
+              style={d({ fontSize: 23, lineHeight: 31, marginBottom: isLast ? 0 : 12 })}
+              className={`d d-mb font-medium text-foreground/95 max-lg:mb-3 max-lg:text-[clamp(0.8rem,3.2vw,0.95rem)] max-lg:last:mb-0 ${
+                paragraph.italic ? "italic text-foreground/70" : ""
+              }`}
+            >
+              {paragraph.text}
+            </p>
+          );
+        })}
+      </div>
 
       <div
         data-abs
-        style={d({ left: 1042.7, top: 222.7, width: 465, height: 602.3, borderRadius: 28, borderWidth: 2.5 })}
-        className="d d-br d-bw border-foreground bg-surface max-lg:mt-5 max-lg:min-h-0 max-lg:w-full max-lg:flex-1 max-lg:rounded-2xl max-lg:border-2"
-      />
+        style={d({ left: 1042.7, top: 222.7, width: 465, height: 602.3, borderWidth: 3 })}
+        // No mobile a foto leva mais espaço que o texto, senão a proporção
+        // do arco a deixa estreita demais.
+        className="photo-frame photo-arch d d-bw relative overflow-hidden border-foreground bg-surface max-lg:mt-5 max-lg:min-h-0 max-lg:flex-[1.7] max-lg:border-2"
+      >
+        <Image
+          src="/foto.jpg"
+          alt="Retrato de Natali"
+          fill
+          sizes="(max-width: 1023px) 90vw, 465px"
+          priority
+          className="photo-vintage object-cover"
+        />
+      </div>
     </>
   );
 }

@@ -10,9 +10,23 @@ export const translations = {
     hero: {
       greetingLine1: "Olá, me chamo Natali, mas",
       greetingLine2: "pode me chamar de Nati!",
-      text1: "Texto sobre inicio outro texto complementar",
-      text2Prefix: "Texto sobre ",
-      text2Highlight: "inicio",
+      paragraphs: [
+        {
+          text: "Carioca, morando em SC. 12 anos de carreira. Comecei no marketing, migrei pro design há 9 anos, focando nas necessidades dos usuários alinhadas à estratégia de negócios.",
+        },
+        {
+          text: "Já trabalhei em times por trás de produtos para Lola Cosmetics, Airbnb, C6 Bank, P&G, Magazine Luiza, Imaginarium e Hering. Também passei por equipes menores (incluindo uma fábrica de chocolates).",
+        },
+        {
+          text: "Me apaixono por problemas caóticos e os transformo em algo simples o suficiente até serem facilmente explicados.",
+        },
+        {
+          text: "Uso a IA para potencializar meu trabalho, não como substituta. Ela me ajuda a organizar processos, desenhar features e otimizar minha stack de ferramentas. A estratégia, as decisões de negócio e a experiência do usuário continuam sendo minhas.",
+        },
+        {
+          text: "Também faço ilustrações e estou estudando front-end e back-end para facilitar a vida.",
+        },
+      ],
     },
     projects: {
       title: "Projetos",
@@ -65,7 +79,29 @@ export const translations = {
     },
     contact: {
       title: "Vamos conversar?",
-      items: ["E-mail", "LinkedIn", "Behance", "WhatsApp"],
+      // `label` é lido por leitores de tela; `display` é o que aparece na tela.
+      items: [
+        {
+          label: "E-mail",
+          display: "nati.design97@gmail.com",
+          href: "mailto:nati.design97@gmail.com",
+        },
+        {
+          label: "LinkedIn",
+          display: "linkedin.com/in/natali-neves",
+          href: "https://www.linkedin.com/in/natali-neves/",
+        },
+        {
+          label: "Behance",
+          display: "behance.net/nati97",
+          href: "https://www.behance.net/nati97",
+        },
+        {
+          label: "Medium",
+          display: "medium.com/@natali.design97",
+          href: "https://medium.com/@natali.design97",
+        },
+      ],
     },
     resume: {
       title: "Resume",
@@ -86,9 +122,23 @@ export const translations = {
     hero: {
       greetingLine1: "Hi, I'm Natali, but",
       greetingLine2: "you can call me Nati!",
-      text1: "Placeholder text about the intro, and another complementary line",
-      text2Prefix: "Placeholder text about the ",
-      text2Highlight: "intro",
+      paragraphs: [
+        {
+          text: "From Rio, living in Santa Catarina. 12 years of career. I started in marketing and moved into design 9 years ago, focusing on user needs aligned with business strategy.",
+        },
+        {
+          text: "I've worked on the teams behind products for Lola Cosmetics, Airbnb, C6 Bank, P&G, Magazine Luiza, Imaginarium and Hering. I've also been part of smaller teams (including a chocolate factory).",
+        },
+        {
+          text: "I fall in love with chaotic problems and turn them into something simple enough to be easily explained.",
+        },
+        {
+          text: "I use AI to amplify my work, not to replace it. It helps me organise processes, design features and optimise my tool stack. The strategy, the business decisions and the user experience are still mine.",
+        },
+        {
+          text: "I also do illustration, and I'm studying front-end and back-end to make life easier.",
+        },
+      ],
     },
     projects: {
       title: "Projects",
@@ -141,7 +191,28 @@ export const translations = {
     },
     contact: {
       title: "Let's talk?",
-      items: ["Email", "LinkedIn", "Behance", "WhatsApp"],
+      items: [
+        {
+          label: "Email",
+          display: "nati.design97@gmail.com",
+          href: "mailto:nati.design97@gmail.com",
+        },
+        {
+          label: "LinkedIn",
+          display: "linkedin.com/in/natali-neves",
+          href: "https://www.linkedin.com/in/natali-neves/",
+        },
+        {
+          label: "Behance",
+          display: "behance.net/nati97",
+          href: "https://www.behance.net/nati97",
+        },
+        {
+          label: "Medium",
+          display: "medium.com/@natali.design97",
+          href: "https://medium.com/@natali.design97",
+        },
+      ],
     },
     resume: {
       title: "Resume",

@@ -12,11 +12,13 @@ export default function Logo() {
       <Image
         src="/logo.svg"
         alt="Natali Design"
-        width={1159}
-        height={741}
+        width={2004}
+        height={448}
         priority
-        style={d({ height: 82 })}
-        className="d w-auto dark:invert max-lg:h-14"
+        // Esta versão da marca é horizontal (proporção ~4,5:1), então a altura
+        // é menor que a da versão empilhada para a largura não dominar o topo.
+        style={d({ height: 58 })}
+        className="d w-auto dark:invert max-lg:h-10"
       />
     </div>
   );

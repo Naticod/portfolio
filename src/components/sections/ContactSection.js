@@ -17,23 +17,40 @@ export default function ContactSection() {
       </h1>
 
       <ul data-abs style={d({ left: 268, top: 310.7 })} className="d max-lg:mt-6">
-        {t.contact.items.map((item) => (
-          <li
-            key={item}
-            // Figma: item 45 de altura, próximo item 92 abaixo.
-            // No mobile o espaçamento pedido é de 18px entre os retângulos.
-            style={d({ height: 45, marginBottom: 47, gap: 27 })}
-            className="d d-mb flex items-center max-lg:mb-[18px] max-lg:gap-4 max-lg:last:mb-0"
-          >
-            <span
-              style={d({ width: 50, height: 45, borderRadius: 10 })}
-              className="d d-br flex-shrink-0 rounded-md bg-foreground max-lg:h-8 max-lg:w-9"
-            />
-            <span style={d({ fontSize: 26 })} className="d max-lg:text-base">
-              {item}
-            </span>
-          </li>
-        ))}
+        {t.contact.items.map((item) => {
+          const isExternal = item.href.startsWith("http");
+          return (
+            <li
+              key={item.label}
+              // Figma: item 45 de altura, próximo item 92 abaixo.
+              // No mobile o espaçamento pedido é de 18px entre os retângulos.
+              style={d({ height: 45, marginBottom: 47 })}
+              className="d d-mb max-lg:mb-[18px] max-lg:last:mb-0"
+            >
+              <a
+                href={item.href}
+                aria-label={`${item.label}: ${item.display}`}
+                // Links externos abrem em nova aba. O `noopener noreferrer`
+                // impede que a página aberta ganhe acesso a esta.
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                style={d({ gap: 27 })}
+                className="d flex h-full items-center transition-opacity hover:opacity-70 max-lg:gap-4"
+              >
+                <span
+                  style={d({ width: 50, height: 45, borderRadius: 10 })}
+                  className="d d-br flex-shrink-0 rounded-md bg-foreground max-lg:h-8 max-lg:w-9"
+                />
+                <span
+                  style={d({ fontSize: 26 })}
+                  className="d break-all max-lg:text-sm"
+                >
+                  {item.display}
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

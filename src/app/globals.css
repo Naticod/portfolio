@@ -25,16 +25,22 @@
 @property --d-tx { syntax: "*"; inherits: false; }
 
 :root {
-  --background: #faf7f2;
+  --background: #fffcf7;
   --foreground: #1a1a1a;
   --muted: #6b6558;
   --accent: #b9a8e8;
   --surface: #ffffff;
-  --grid-dot: rgba(26, 26, 26, 0.16);
-  --gradient-start: #fbf8f2;
-  --gradient-mid: #f3edf9;
-  --gradient-end: #ded0f5;
-  --tint-top-right: rgba(169, 137, 171, 0.5); /* #A989AB */
+
+  /* Fundo conforme inicio.svg: base creme, três manchas borradas e um
+     grão fino. O pontilhado do arquivo vem a 25%; aqui fica mais suave. */
+  --grid-dot: rgba(13, 13, 13, 0.15);
+  --grid-gap: 30px;
+  --bg-base: #fffcf7;
+  --blob-violet: rgba(195, 181, 221, 0.34); /* #C3B5DD */
+  --blob-blue: rgba(177, 208, 255, 0.42); /* #B1D0FF */
+  --blob-mauve: rgba(169, 137, 171, 0.3); /* #A989AB */
+  --grain: rgba(142, 119, 87, 0.25);
+  --grain-opacity: 0.42;
 
   /* 1 unidade = 1px do Figma (canvas 1920x1024). No mobile o layout usa fluxo normal. */
   --u: 1px;
@@ -45,11 +51,16 @@
   --foreground: #f5f2ea;
   --muted: #b3ab9c;
   --surface: #1e1a2b;
-  --grid-dot: rgba(245, 242, 234, 0.14);
-  --gradient-start: #16131f;
-  --gradient-mid: #1c1830;
-  --gradient-end: #2d2246;
-  --tint-top-right: rgba(169, 137, 171, 0.32);
+
+  /* Mesma composição do tema claro, com as manchas rebaixadas para não
+     brilharem sobre o fundo escuro. */
+  --grid-dot: rgba(245, 242, 234, 0.12);
+  --bg-base: #16131f;
+  --blob-violet: rgba(140, 122, 184, 0.32);
+  --blob-blue: rgba(96, 133, 196, 0.3);
+  --blob-mauve: rgba(169, 137, 171, 0.28);
+  --grain: rgba(180, 160, 130, 0.2);
+  --grain-opacity: 0.35;
 }
 
 @theme inline {
@@ -62,10 +73,15 @@
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+/* O conteúdo fica acima da camada de grão. */
+.frame {
+  position: relative;
+  z-index: 1;
 }
 
 /* Ponteiro em forma de estrela, em todo o site. O hotspot (13 13) fica no
@@ -105,14 +121,114 @@ select {
   }
 }
 
+/* Fundo do site, traduzido de inicio.svg.
+   De cima para baixo: pontilhado, mancha rosada no topo à direita, mancha
+   azul à direita, mancha lilás na base à esquerda e a base creme.
+   O grão fica numa camada à parte (::before), porque precisa de mistura. */
 .bg-portfolio {
+  position: relative;
+  background-color: var(--bg-base);
   background-image:
     radial-gradient(circle, var(--grid-dot) 1px, transparent 1px),
-    /* nuance #A989AB no canto superior direito */
-    radial-gradient(ellipse 55% 45% at 100% 0%, var(--tint-top-right), transparent 72%),
-    linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 55%, var(--gradient-end) 100%);
-  background-size: 22px 22px, cover, cover;
+    /* rosa no alto à direita, azul no centro-direita e lilás na base à
+       esquerda — a metade esquerda de cima fica quase só a base creme. */
+    radial-gradient(ellipse 46% 40% at 94% 4%, var(--blob-mauve), transparent 72%),
+    radial-gradient(ellipse 64% 62% at 62% 46%, var(--blob-blue), transparent 70%),
+    radial-gradient(ellipse 46% 52% at 10% 92%, var(--blob-violet), transparent 72%);
+  background-size: var(--grid-gap) var(--grid-gap), cover, cover, cover;
   background-attachment: fixed;
+}
+
+/* Grão fino sobre o fundo — o mesmo ruído do arquivo do Figma. */
+.bg-portfolio::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23g)' opacity='0.42'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+.dark .bg-portfolio::before {
+  mix-blend-mode: screen;
+}
+
+/* No mobile a grade fica mais fechada, acompanhando a tela menor. */
+@media (max-width: 1023px) {
+  :root {
+    --grid-gap: 22px;
+  }
+}
+
+/* Moldura em arco (Rectangle 22.svg): topo em semicírculo — raio igual a
+   metade da largura nos dois eixos — e base com cantos suaves. */
+.photo-arch {
+  border-radius: var(--arch-top) var(--arch-top) var(--arch-bottom) var(--arch-bottom);
+}
+
+@media (min-width: 1024px) {
+  .photo-arch {
+    /* 232.5 = metade dos 465 de largura do quadro no design. */
+    --arch-top: calc(232.5 * var(--u));
+    --arch-bottom: calc(14.7 * var(--u));
+  }
+}
+
+/* No mobile o quadro guarda a proporção do design (465x602) e encolhe pela
+   altura disponível. Sem isso ele fica mais largo que alto e o topo vira uma
+   elipse achatada em vez de um semicírculo.
+   Os raios em porcentagem (metade da largura na horizontal, o mesmo valor
+   convertido para a altura na vertical) mantêm o arco redondo em qualquer
+   tamanho, já que a proporção é fixa. */
+@media (max-width: 1023px) {
+  .photo-arch {
+    aspect-ratio: 465 / 602.3;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin-inline: auto;
+    border-radius: 50% 50% 3.16% 3.16% / 38.6% 38.6% 2.44% 2.44%;
+  }
+}
+
+/* Retrato com tratamento vintage brutalista: contraste alto, cor puxada
+   para o quente e um grão fino por cima — sutil, sem virar filtro. */
+.photo-vintage {
+  filter: contrast(1.12) saturate(0.72) sepia(0.16) brightness(1.02);
+}
+
+.photo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Grão gerado no próprio CSS: nenhum arquivo extra para baixar. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='120' height='120' filter='url(%23n)' opacity='0.55'/></svg>");
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+}
+
+.dark .photo-frame::after {
+  mix-blend-mode: screen;
+  opacity: 0.09;
+}
+
+/* Barra de rolagem discreta da bio, para não competir com o conteúdo. */
+.bio-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--foreground) 28%, transparent) transparent;
+}
+
+.bio-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bio-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--foreground) 28%, transparent);
+  border-radius: 3px;
 }
 
 /* Modal de projeto: o painel surge com um leve zoom e o fundo escurece. */
