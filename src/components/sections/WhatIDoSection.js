@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlusIcon } from "@/components/icons";
 import { d } from "@/lib/u";
@@ -54,10 +55,24 @@ export default function WhatIDoSection() {
                 style={d({ height: 45, gap: 27 })}
                 className="d flex w-full items-center text-left max-lg:gap-3 max-lg:py-2.5"
               >
+                {/* rounded-full numa caixa não quadrada (50x45) já forma a
+                    elipse pedida — não precisa de border-radius calculado. */}
                 <span
-                  style={d({ width: 50, height: 45, borderRadius: 10 })}
-                  className="d d-br flex-shrink-0 rounded-md bg-foreground max-lg:h-7 max-lg:w-8"
-                />
+                  style={d({ width: 50, height: 45 })}
+                  className="d relative flex flex-shrink-0 items-center justify-center rounded-full bg-foreground max-lg:h-7 max-lg:w-8"
+                >
+                  <Image
+                    src="/icons/brilho-aneis.svg"
+                    alt=""
+                    width={103}
+                    height={103}
+                    aria-hidden="true"
+                    // O ícone é branco puro (feito pra fundo escuro); no tema
+                    // escuro a bolha vira clara, então invertemos pra preto.
+                    style={d({ width: 28, height: 28 })}
+                    className="d dark:invert max-lg:h-4 max-lg:w-4"
+                  />
+                </span>
                 <span style={d({ fontSize: 26 })} className="d flex-1 max-lg:text-base">
                   {item}
                 </span>
