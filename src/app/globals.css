@@ -231,6 +231,17 @@ select {
   border-radius: 3px;
 }
 
+/* Rola de verdade (nada fica inacessível), mas sem barra visível — usado
+   onde uma barra de rolagem quebraria a composição visual. */
+.scroll-invisible {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-invisible::-webkit-scrollbar {
+  display: none;
+}
+
 /* Modal de projeto: o painel surge com um leve zoom e o fundo escurece. */
 @keyframes modal-in {
   from { opacity: 0; transform: scale(0.985); }
@@ -291,7 +302,17 @@ select {
   animation: carousel-in-down 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Painel do accordion de "O que eu faço": abre e fecha suave, com os itens
+   de baixo descendo junto em vez de saltar de uma vez. */
+.accordion-panel {
+  transition: grid-template-rows 0.3s ease-in-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .accordion-panel {
+    transition: none;
+  }
+
   .carousel-in-up,
   .carousel-in-down {
     animation: none;

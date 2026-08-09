@@ -34,8 +34,10 @@ export default function ContactSection() {
                 // impede que a página aberta ganhe acesso a esta.
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                style={d({ gap: 27 })}
-                className="d flex h-full items-center transition-opacity hover:opacity-70 max-lg:gap-4"
+                // height:"100%" depois do d(): mesma razão do botão do
+                // accordion — a classe "d" vence "h-full" do Tailwind.
+                style={{ ...d({ gap: 27 }), height: "100%" }}
+                className="d flex items-center transition-opacity hover:opacity-70 max-lg:gap-4"
               >
                 <span
                   style={d({ width: 50, height: 45, borderRadius: 10 })}

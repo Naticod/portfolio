@@ -70,11 +70,31 @@ export const translations = {
     whatIDo: {
       title: "O que eu faço",
       items: [
-        "Texto sobre inicio",
-        "Texto sobre inicio",
-        "Texto sobre inicio",
-        "Texto sobre inicio",
-        "Texto sobre inicio",
+        {
+          title: "Product Design",
+          content:
+            "Conduzo o ciclo completo de produto, da descoberta à entrega. Defino requisitos, crio PRDs e regras de negócios, estruturo fluxos complexos e priorizo oportunidades. Conecto estratégia e visão de negócio para criar soluções escaláveis e centradas no usuário, sempre alinhando o que resolve o problema da pessoa com o que faz sentido para o negócio.",
+        },
+        {
+          title: "UX/UI Design",
+          content:
+            "Desenho a experiência e a interface de ponta a ponta. Crio arquitetura de informação, jornadas, fluxos, wireframes e protótipos navegáveis de média e alta fidelidade. Componentizo interfaces, construo e mantenho Design Systems e organizo o handoff técnico para engenharia. Trago visão de negócio para dentro do design, usando benchmarks e dados para priorizar decisões. Uso IA como ferramenta de apoio no discovery e na ideação, nunca como resposta ou decisão final.",
+        },
+        {
+          title: "UX Research",
+          content:
+            "Faço pesquisa como base de toda decisão e desenvolvimento de design. Conduzo Product Discovery, análise comportamental e atitudinal de usuários, benchmarks competitivos e estudos de referência. Planejo e executo testes de usabilidade com usuários reais para validar hipóteses e reduzir fricções antes de qualquer entrega.",
+        },
+        {
+          title: "Design Gráfico",
+          content:
+            "Crio material de comunicação visual online e offline: peças para redes sociais, mídias tradicionais, papelaria, direção de arte e tratamento de imagem.",
+        },
+        {
+          title: "Identidade Visual & Branding",
+          content:
+            "Construo identidades e marcas do zero. Desenho logos, defino paletas, sistemas visuais e a linguagem de cada projeto, dando a produtos e negócios uma personalidade própria e coerente em todos os pontos de contato.",
+        },
       ],
     },
     contact: {
@@ -182,11 +202,31 @@ export const translations = {
     whatIDo: {
       title: "What I do",
       items: [
-        "Placeholder text about the intro",
-        "Placeholder text about the intro",
-        "Placeholder text about the intro",
-        "Placeholder text about the intro",
-        "Placeholder text about the intro",
+        {
+          title: "Product Design",
+          content:
+            "I run the full product cycle, from discovery to delivery. I define requirements, write PRDs and business rules, structure complex flows and prioritise opportunities. I connect strategy and business vision to build scalable, user-centred solutions, always aligning what solves the person's problem with what makes sense for the business.",
+        },
+        {
+          title: "UX/UI Design",
+          content:
+            "I design the experience and the interface end to end. I build information architecture, journeys, flows, wireframes and mid-to-high fidelity navigable prototypes. I componentise interfaces, build and maintain Design Systems, and organise the technical handoff to engineering. I bring business vision into design, using benchmarks and data to prioritise decisions. I use AI as a support tool in discovery and ideation, never as the final answer or decision.",
+        },
+        {
+          title: "UX Research",
+          content:
+            "I use research as the foundation for every design decision. I run Product Discovery, behavioural and attitudinal user analysis, competitive benchmarks and reference studies. I plan and run usability tests with real users to validate hypotheses and reduce friction before any delivery.",
+        },
+        {
+          title: "Graphic Design",
+          content:
+            "I create visual communication material online and offline: social media pieces, traditional media, stationery, art direction and image treatment.",
+        },
+        {
+          title: "Visual Identity & Branding",
+          content:
+            "I build identities and brands from the ground up. I design logos, define palettes, visual systems and each project's language, giving products and businesses a personality of their own that stays coherent across every touchpoint.",
+        },
       ],
     },
     contact: {
