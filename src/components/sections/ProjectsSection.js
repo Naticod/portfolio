@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { ArrowUpIcon, ArrowDownIcon } from "@/components/icons";
 import ProjectModal from "@/components/ProjectModal";
@@ -73,14 +74,32 @@ export default function ProjectsSection() {
         className="d max-lg:mt-6 max-lg:w-full"
         aria-live="polite"
       >
+        {current.title && (
+          <h2
+            key={`${active}-titulo`}
+            style={d({ fontSize: 30, lineHeight: 40, marginBottom: 28 })}
+            className={`d d-mb font-bold ${animation} max-lg:mb-3 max-lg:text-lg`}
+          >
+            {current.title}
+            {current.note && (
+              <span
+                style={d({ fontSize: 22 })}
+                className="d ml-2 font-medium text-foreground/60 max-lg:text-sm"
+              >
+                {current.note}
+              </span>
+            )}
+          </h2>
+        )}
+
         {current.blocks.map((block, index) => (
           <p
             key={`${active}-${index}`}
             style={{
               ...d({ fontSize: 24, lineHeight: 30, marginBottom: index === 0 ? 75 : 0 }),
-              animationDelay: `${index * 60}ms`,
+              animationDelay: `${(index + (current.title ? 1 : 0)) * 60}ms`,
             }}
-            className={`d d-mb text-foreground/85 ${animation} max-lg:mb-4 max-lg:text-base`}
+            className={`d d-mb font-medium text-foreground/85 ${animation} max-lg:mb-4 max-lg:text-base`}
           >
             {block.line1}{" "}
             <br className="max-lg:hidden" />
@@ -133,31 +152,46 @@ export default function ProjectsSection() {
             tabIndex={visible ? 0 : -1}
             aria-label={
               isActive
-                ? `${t.projects.open}: ${project.blocks[0].line1}`
-                : project.blocks[0].line1
+                ? `${t.projects.open}: ${project.title ?? project.blocks[0].line1}`
+                : (project.title ?? project.blocks[0].line1)
             }
             style={{
               ...d(slot ?? fallback),
               ...(SLOT_STYLE[String(offset)] ?? { opacity: 0, zIndex: 0 }),
             }}
-            className={`carousel-card d d-br d-bw overflow-hidden bg-surface max-lg:mt-4 max-lg:min-h-0 max-lg:w-full max-lg:rounded-2xl max-lg:border-2 ${
+            // "relative" é o que faz a imagem com `fill` se ancorar no card
+            // no mobile; no desktop o data-abs já deixa o card posicionado.
+            className={`carousel-card d d-br d-bw relative overflow-hidden bg-surface max-lg:mt-4 max-lg:min-h-0 max-lg:w-full max-lg:rounded-2xl max-lg:border-2 ${
               isActive
                 ? "border-foreground hover:shadow-lg max-lg:flex-1"
                 : "border-foreground/35 max-lg:hidden"
             }`}
           >
-            {/* Numeração provisória — troque pela imagem de cada projeto. */}
-            <span
-              aria-hidden="true"
-              className="flex h-full w-full items-center justify-center text-foreground/15"
-            >
+            {project.thumb ? (
+              <Image
+                src={project.thumb}
+                alt=""
+                aria-hidden="true"
+                fill
+                // O card em destaque é o maior (453 no design); os de trás
+                // têm 228, então pedimos a imagem no tamanho certo pra cada.
+                sizes={isActive ? "(max-width: 1023px) 92vw, 453px" : "228px"}
+                className="object-cover object-top"
+              />
+            ) : (
+              /* Sem imagem ainda: número provisório. */
               <span
-                style={d({ fontSize: isActive ? 160 : 60 })}
-                className="d font-medium max-lg:text-[clamp(3.5rem,20vw,6rem)]"
+                aria-hidden="true"
+                className="flex h-full w-full items-center justify-center text-foreground/15"
               >
-                {String(index + 1).padStart(2, "0")}
+                <span
+                  style={d({ fontSize: isActive ? 160 : 60 })}
+                  className="d font-medium max-lg:text-[clamp(3.5rem,20vw,6rem)]"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
               </span>
-            </span>
+            )}
           </button>
         );
       })}

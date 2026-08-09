@@ -50,7 +50,7 @@ export default function ProjectModal({ project, labels, onClose }) {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label={project.blocks[0].line1}
+        aria-label={project.title ?? project.blocks[0].line1}
         onClick={(event) => event.stopPropagation()}
         style={d({ left: 68, top: 77, width: 1784, height: 852, borderRadius: 28 })}
         // Vidro fosco: translúcido o bastante pra perceber, embaçado, o que
@@ -62,17 +62,27 @@ export default function ProjectModal({ project, labels, onClose }) {
           style={d({ padding: 90 })}
           className="modal-scroll modal-content d-p h-full overflow-y-auto overscroll-contain max-lg:p-6 max-lg:pt-16"
         >
+          {/* Projeto já preenchido usa o título real; os que ainda estão
+              com texto de exemplo caem no primeiro bloco. */}
           <h2
             style={d({ fontSize: 48 })}
-            className="d font-medium tracking-tight max-lg:text-2xl"
+            className="d font-bold tracking-tight max-lg:text-2xl"
           >
-            {project.blocks[0].line1}
+            {project.title ?? project.blocks[0].line1}
+            {project.note && (
+              <span
+                style={d({ fontSize: 26 })}
+                className="d ml-3 font-medium text-foreground/60 max-lg:text-base"
+              >
+                {project.note}
+              </span>
+            )}
           </h2>
           <p
             style={d({ fontSize: 26, marginTop: 20 })}
-            className="d d-mt text-foreground/80 max-lg:mt-3 max-lg:text-sm"
+            className="d d-mt font-medium text-foreground/85 max-lg:mt-3 max-lg:text-sm"
           >
-            {project.blocks[0].line2}
+            {project.title ? project.blocks[0].line1 : project.blocks[0].line2}
           </p>
         </div>
 

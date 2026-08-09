@@ -34,12 +34,14 @@ export const translations = {
       next: "Próximo projeto",
       open: "Abrir projeto",
       close: "Fechar projeto",
+      // `thumb` é opcional: projeto sem imagem ainda mostra o número
+      // provisório no card.
       items: [
         {
-          blocks: [
-            { line1: "Projeto 1 — texto sobre", line2: "outro texto complementar" },
-            { line1: "Texto sobre inicio", line2: "outro texto complementar" },
-          ],
+          title: "Campanhas — Gestão operacional de marketing de influência",
+          note: "(sob NDA)",
+          thumb: "/projects/campanhas.png",
+          blocks: [{ line1: "Texto sobre o projeto", line2: "outro texto complementar" }],
         },
         {
           blocks: [
@@ -168,10 +170,10 @@ export const translations = {
       close: "Close project",
       items: [
         {
-          blocks: [
-            { line1: "Project 1 — text about", line2: "another complementary line" },
-            { line1: "Placeholder text about the intro", line2: "another complementary line" },
-          ],
+          title: "Campaigns — Influencer marketing operations",
+          note: "(under NDA)",
+          thumb: "/projects/campanhas.png",
+          blocks: [{ line1: "Text about the project", line2: "another complementary line" }],
         },
         {
           blocks: [
