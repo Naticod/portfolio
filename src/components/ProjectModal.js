@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import CaseContent from "@/components/CaseContent";
 import { d } from "@/lib/u";
 
 // Figma (Projeto expandido.png): painel translúcido com blur cobrindo a página,
@@ -50,40 +51,38 @@ export default function ProjectModal({ project, labels, onClose }) {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label={project.title ?? project.blocks[0].line1}
+        aria-label={project.label}
         onClick={(event) => event.stopPropagation()}
-        style={d({ left: 68, top: 77, width: 1784, height: 852, borderRadius: 28 })}
-        // Vidro fosco: translúcido o bastante pra perceber, embaçado, o que
-        // está atrás — sem apagar tudo.
-        className="modal-panel d d-br absolute overflow-hidden bg-surface/35 shadow-xl backdrop-blur-md max-lg:relative max-lg:h-[86dvh] max-lg:w-[92vw] max-lg:rounded-2xl"
+        // Ocupa quase todo o frame (1920x1024), deixando só uma margem de
+        // respiro. O painel do Figma era 1784x852; crescer aqui é o que dá
+        // mais área de leitura sem precisar rolar tanto.
+        style={d({ left: 30, top: 30, width: 1860, height: 964, borderRadius: 28 })}
+        // Fundo sólido: o case tem muito texto, e qualquer transparência
+        // deixaria o conteúdo de trás competindo com a leitura.
+        className="modal-panel d d-br absolute overflow-hidden bg-surface shadow-2xl max-lg:relative max-lg:h-[86dvh] max-lg:w-[92vw] max-lg:rounded-2xl"
       >
         {/* Área rolável: o modal é o único lugar do site com scroll. */}
         <div
-          style={d({ padding: 90 })}
-          className="modal-scroll modal-content d-p h-full overflow-y-auto overscroll-contain max-lg:p-6 max-lg:pt-16"
+          style={d({ padding: 60 })}
+          className="modal-scroll modal-content d-p h-full overflow-y-auto overscroll-contain max-lg:p-5 max-lg:pt-16"
         >
-          {/* Projeto já preenchido usa o título real; os que ainda estão
-              com texto de exemplo caem no primeiro bloco. */}
           <h2
-            style={d({ fontSize: 48 })}
+            style={d({ fontSize: 40 })}
             className="d font-bold tracking-tight max-lg:text-2xl"
           >
-            {project.title ?? project.blocks[0].line1}
+            {project.label}
             {project.note && (
               <span
-                style={d({ fontSize: 26 })}
+                style={d({ fontSize: 22 })}
                 className="d ml-3 font-medium text-foreground/60 max-lg:text-base"
               >
                 {project.note}
               </span>
             )}
           </h2>
-          <p
-            style={d({ fontSize: 26, marginTop: 20 })}
-            className="d d-mt font-medium text-foreground/85 max-lg:mt-3 max-lg:text-sm"
-          >
-            {project.title ? project.blocks[0].line1 : project.blocks[0].line2}
-          </p>
+
+          {/* A ficha técnica (cargo, ano, foco) vive na abertura do case. */}
+          <CaseContent project={project} />
         </div>
 
         <button

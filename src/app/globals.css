@@ -18,6 +18,7 @@
 @property --d-gap { syntax: "*"; inherits: false; }
 @property --d-p { syntax: "*"; inherits: false; }
 @property --d-pb { syntax: "*"; inherits: false; }
+@property --d-pl { syntax: "*"; inherits: false; }
 @property --d-mt { syntax: "*"; inherits: false; }
 @property --d-mb { syntax: "*"; inherits: false; }
 @property --d-br { syntax: "*"; inherits: false; }
@@ -366,8 +367,14 @@ select {
     transform: translateX(var(--d-tx, 0));
   }
 
+  /* Blocos do case: título à esquerda em largura fixa, texto à direita. */
+  [data-two-columns] {
+    grid-template-columns: calc(620 * var(--u)) 1fr;
+  }
+
   .d-p { padding: var(--d-p, 0); }
   .d-pb { padding-bottom: var(--d-pb, 0); }
+  .d-pl { padding-left: var(--d-pl, 0); }
   .d-mt { margin-top: var(--d-mt, 0); }
   .d-mb { margin-bottom: var(--d-mb, 0); }
   .d-br { border-radius: var(--d-br, 0); }

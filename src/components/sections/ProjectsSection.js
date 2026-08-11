@@ -92,20 +92,6 @@ export default function ProjectsSection() {
           </h2>
         )}
 
-        {current.blocks.map((block, index) => (
-          <p
-            key={`${active}-${index}`}
-            style={{
-              ...d({ fontSize: 24, lineHeight: 30, marginBottom: index === 0 ? 75 : 0 }),
-              animationDelay: `${(index + (current.title ? 1 : 0)) * 60}ms`,
-            }}
-            className={`d d-mb font-medium text-foreground/85 ${animation} max-lg:mb-4 max-lg:text-base`}
-          >
-            {block.line1}{" "}
-            <br className="max-lg:hidden" />
-            {block.line2}
-          </p>
-        ))}
       </div>
 
       <div
@@ -139,6 +125,9 @@ export default function ProjectsSection() {
         // Fora dos 5 slots (listas maiores): esconde no extremo mais próximo.
         const visible = Boolean(slot);
         const fallback = offset < 0 ? SLOTS["-2"] : SLOTS["2"];
+        // Projeto ainda sem título usa um rótulo genérico, para o botão
+        // nunca ficar sem nome em leitores de tela.
+        const projectLabel = project.title ?? `${t.projects.fallbackTitle} ${index + 1}`;
 
         return (
           <button
@@ -152,8 +141,8 @@ export default function ProjectsSection() {
             tabIndex={visible ? 0 : -1}
             aria-label={
               isActive
-                ? `${t.projects.open}: ${project.title ?? project.blocks[0].line1}`
-                : (project.title ?? project.blocks[0].line1)
+                ? `${t.projects.open}: ${projectLabel}`
+                : projectLabel
             }
             style={{
               ...d(slot ?? fallback),
@@ -198,7 +187,10 @@ export default function ProjectsSection() {
 
       {isModalOpen && (
         <ProjectModal
-          project={current}
+          project={{
+            ...current,
+            label: current.title ?? `${t.projects.fallbackTitle} ${active + 1}`,
+          }}
           labels={{ close: t.projects.close }}
           onClose={() => setIsModalOpen(false)}
         />

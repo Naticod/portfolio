@@ -23,6 +23,7 @@ const PROPERTY_TO_VAR = {
   gap: "--d-gap",
   padding: "--d-p",
   paddingBottom: "--d-pb",
+  paddingLeft: "--d-pl",
   marginTop: "--d-mt",
   marginBottom: "--d-mb",
   borderRadius: "--d-br",

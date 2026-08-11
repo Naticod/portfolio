@@ -34,39 +34,213 @@ export const translations = {
       next: "Próximo projeto",
       open: "Abrir projeto",
       close: "Fechar projeto",
-      // `thumb` é opcional: projeto sem imagem ainda mostra o número
-      // provisório no card.
+      // Rótulo dos projetos ainda sem título, usado por leitores de tela.
+      fallbackTitle: "Projeto",
+      // `title`, `note` e `thumb` são opcionais: projeto ainda não
+      // preenchido mostra só o número provisório no card.
       items: [
         {
           title: "Campanhas — Gestão operacional de marketing de influência",
           note: "(sob NDA)",
           thumb: "/projects/campanhas.png",
-          blocks: [{ line1: "Texto sobre o projeto", line2: "outro texto complementar" }],
-        },
-        {
-          blocks: [
-            { line1: "Projeto 2 — texto sobre", line2: "outro texto complementar" },
-            { line1: "Texto sobre inicio", line2: "outro texto complementar" },
+          // Abertura: frase-síntese + números em destaque + ficha técnica.
+          summary:
+            "De um processo espalhado por cinco ferramentas a um único ambiente de gestão de campanhas, desenhado a partir de como os times de curadoria realmente trabalham.",
+          meta: {
+            role: { label: "Cargo", value: "Product e UX/UI Design Pleno" },
+            year: { label: "Ano", value: "2024–2025" },
+            focus: {
+              label: "Foco",
+              // Separados por ponto na mesma linha.
+              value: ["Gestão operacional", "Fluxos complexos", "Automação de relatórios"],
+            },
+          },
+          // Cada bloco tem um rótulo curto e um subtítulo que já entrega
+          // a conclusão da seção.
+          sections: [
+            {
+              type: "text",
+              label: "Contexto",
+              heading: "A busca já existia: a operação da campanha, não",
+              paragraphs: [
+                "Funcionalidade desenvolvida para uma plataforma SaaS de busca e gestão de creators. A empresa já possuía uma ferramenta de busca consolidada, mas faltava um ambiente integrado para gerenciar o processo completo de campanhas, da curadoria ao relatório com resultados e métricas.",
+                "Por estar sob acordo de confidencialidade, a marca e a identidade visual reais não são exibidas. As telas apresentadas são recriações anonimizadas.",
+              ],
+            },
+            {
+              type: "image",
+              src: "/projects/campanhas-board.png",
+              width: 1048,
+              height: 640,
+              caption: "Board de campanha com os creators organizados por etapa do funil.",
+            },
+            {
+              type: "text",
+              label: "Problema",
+              heading: "Cada etapa do funil vivia numa ferramenta diferente",
+              paragraphs: [
+                "Os times de curadoria, gestão de campanhas e planejamento operavam com o processo fragmentado em múltiplos sistemas: ferramenta de busca, gerenciadores de projeto, WhatsApp, planilhas e e-mail.",
+                "Isso gerava alto custo operacional, retrabalho manual e dificuldade de escalar — sem nenhuma integração entre as etapas.",
+              ],
+            },
+            {
+              type: "text",
+              label: "Descoberta",
+              heading: "O Kanban já era o modelo mental dos times",
+              paragraphs: [
+                "Conduzi pesquisa exploratória de mercado e benchmark das principais plataformas de marketing de influência, mapeando como profissionais de curadoria, planejamento e gestão organizavam o fluxo no dia a dia, quais ferramentas usavam, onde o processo travava e quais tarefas eram repetitivas.",
+                "Tive muito acesso aos usuários, porque a própria agência tinha pessoas operando na curadoria.",
+              ],
+              list: [
+                "O processo era fracionado em pelo menos 4–5 ferramentas diferentes, sem integração entre elas.",
+                "Registrar negociação, acompanhar status e montar relatório eram tarefas manuais que consumiam muito tempo.",
+                "A lógica de Kanban já era familiar aos times (muitos usavam Monday/Trello), mas nenhuma solução do mercado combinava Kanban + dados de creators + relatório num só ambiente.",
+                "Hashtags genéricas demais contaminavam relatórios com posts de terceiros — era preciso alertar o usuário antes e durante a campanha.",
+              ],
+            },
+            {
+              type: "text",
+              label: "Solução",
+              heading: "Um Kanban que também negocia, mede e reporta",
+              paragraphs: [
+                "Uma funcionalidade de gestão de campanhas inspirada em Kanban, integrada à plataforma existente: o usuário cria campanhas e acompanha por hashtags e menções, organiza creators em colunas customizáveis, gerencia negociação e investimento por creator, e gera relatórios comparativos automaticamente ao mover um creator para a coluna principal.",
+                "Tudo dentro de um único ambiente, eliminando a necessidade de ferramentas externas.",
+              ],
+            },
+            {
+              type: "screens",
+              heading: "Wireframes",
+              // 7 imagens numa grade de 4 colunas formam sozinhas duas
+              // fileiras: 4 em cima, 3 embaixo.
+              columns: 4,
+              items: [
+                {
+                  src: "/projects/wireframes/1-lista-campanhas.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Home — lista de campanhas.",
+                },
+                {
+                  src: "/projects/wireframes/2-criar-campanha.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Home — criação de campanha.",
+                },
+                {
+                  src: "/projects/wireframes/3-board-creators.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Board Kanban, com os cards de creators.",
+                },
+                {
+                  src: "/projects/wireframes/4-card-expandido.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Board Kanban, com o card do creator expandido.",
+                },
+                {
+                  src: "/projects/wireframes/5-busca-resultados.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Busca de creators, com resultados.",
+                },
+                {
+                  src: "/projects/wireframes/6-relatorio.png",
+                  width: 2000,
+                  height: 2464,
+                  caption: "Relatório da campanha.",
+                },
+                {
+                  src: "/projects/wireframes/7-relatorio-perfil.png",
+                  width: 2000,
+                  height: 1062,
+                  caption: "Relatório — perfil detalhado do creator contratado.",
+                },
+              ],
+            },
+            {
+              type: "text",
+              label: "Decisões de design",
+              heading: "O que mudou e por quê",
+              list: [
+                "Busca e filtro unificados numa única barra: menos espaço para controles auxiliares, priorizando a lista de campanhas, que é o conteúdo principal. Decisão de redesign pessoal — o formato anterior separava os dois, consumindo espaço vertical sem necessidade.",
+                "Alerta preventivo de hashtag muito usada: ao criar a campanha, o sistema detecta hashtags populares e avisa que posts de terceiros podem contaminar o relatório. Antecipa um problema que antes só aparecia na análise final, e o alerta reaparece durante a campanha para o usuário poder trocar a hashtag.",
+                "Card de creator como central única: consolida negociação (modelo, formatos, valores), anotações internas e desempenho num só lugar, eliminando a troca de contexto entre ferramentas.",
+                "Relatório gerado automaticamente: ao mover um creator para “Aprovados/Em campanha”, o relatório começa a ser gerado e atualizado diariamente, sem ação manual. O sistema detecta as palavras-chave referentes ao início do contrato.",
+                "Detecção de posts fora do período: o sistema encontra publicações relevantes fora da janela de datas e oferece incorporá-las ao relatório sem sair da tela.",
+                "Antecipação da integração com a lista de planejamento: no roadmap original ela ficaria para uma fase futura. Reestruturei a priorização para trazê-la desde o MVP, porque a proposta da funcionalidade era justamente resolver a fragmentação — adiar a integração manteria exatamente o problema que ela se propunha a resolver.",
+              ],
+            },
+            {
+              type: "results",
+              label: "Resultados",
+              heading: "Menos ferramentas, menos trabalho manual",
+              stats: [
+                { value: "+52%", label: "de produtividade operacional dos times" },
+                { value: "−3", label: "ferramentas externas fora do ecossistema" },
+                { icon: "clock", value: "horas → min", label: "para montar um relatório" },
+                { icon: "layers", value: "4", label: "subfuncionalidades após o lançamento" },
+              ],
+              paragraphs: [
+                "Após o lançamento, conduzi workshop de apresentação e treinamento para os times. A funcionalidade evoluiu com subfuncionalidades integradas (central de mensagens, encurtador de links, importação de listas de planejamento e suporte a UGC), tudo a partir da escuta ativa das necessidades levantadas nos workshops e conversas com stakeholders.",
+              ],
+            },
+            {
+              type: "screens",
+              heading: "Todas as telas",
+              // 7 imagens numa grade de 4 colunas: 4 em cima, 3 embaixo.
+              columns: 4,
+              items: [
+                {
+                  src: "/projects/telas/1-lista-campanhas.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Home — lista de campanhas.",
+                },
+                {
+                  src: "/projects/telas/2-criar-campanha.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Modal de criação de campanha, com o alerta de hashtag muito usada.",
+                },
+                {
+                  src: "/projects/telas/3-board-influenciadores.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Dentro da campanha — aba Influenciadores, o board Kanban.",
+                },
+                {
+                  src: "/projects/telas/4-adicionar-creator.png",
+                  width: 2000,
+                  height: 1302,
+                  caption: "Modal de adicionar creator à campanha.",
+                },
+                {
+                  src: "/projects/telas/5-negociacao-creator.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Card do creator expandido — aba Negociação.",
+                },
+                {
+                  src: "/projects/telas/6-relatorio.png",
+                  width: 2000,
+                  height: 3111,
+                  caption: "Dentro da campanha — aba Relatórios.",
+                },
+                {
+                  src: "/projects/telas/7-relatorio-perfil.png",
+                  width: 2000,
+                  height: 1159,
+                  caption: "Relatório — detalhe de publicações de um creator.",
+                },
+              ],
+            },
           ],
         },
-        {
-          blocks: [
-            { line1: "Projeto 3 — texto sobre", line2: "outro texto complementar" },
-            { line1: "Texto sobre inicio", line2: "outro texto complementar" },
-          ],
-        },
-        {
-          blocks: [
-            { line1: "Projeto 4 — texto sobre", line2: "outro texto complementar" },
-            { line1: "Texto sobre inicio", line2: "outro texto complementar" },
-          ],
-        },
-        {
-          blocks: [
-            { line1: "Projeto 5 — texto sobre", line2: "outro texto complementar" },
-            { line1: "Texto sobre inicio", line2: "outro texto complementar" },
-          ],
-        },
+        {},
+        {},
+        {},
+        {},
       ],
     },
     whatIDo: {
@@ -168,37 +342,205 @@ export const translations = {
       next: "Next project",
       open: "Open project",
       close: "Close project",
+      fallbackTitle: "Project",
       items: [
         {
           title: "Campaigns — Influencer marketing operations",
           note: "(under NDA)",
           thumb: "/projects/campanhas.png",
-          blocks: [{ line1: "Text about the project", line2: "another complementary line" }],
-        },
-        {
-          blocks: [
-            { line1: "Project 2 — text about", line2: "another complementary line" },
-            { line1: "Placeholder text about the intro", line2: "another complementary line" },
+          summary:
+            "From a process scattered across five tools to a single campaign management environment, designed around how curation teams actually work.",
+          meta: {
+            role: { label: "Role", value: "Mid-level Product & UX/UI Design" },
+            year: { label: "Year", value: "2024–2025" },
+            focus: {
+              label: "Focus",
+              value: ["Operations design", "Complex flows", "Report automation"],
+            },
+          },
+          sections: [
+            {
+              type: "text",
+              label: "Context",
+              heading: "The search existed: the campaign operation did not",
+              paragraphs: [
+                "A feature built for a SaaS platform for creator search and management. The company already had a solid search tool, but lacked an integrated environment to manage the full campaign process, from curation through to the report with results and metrics.",
+                "Under a confidentiality agreement, the real brand and visual identity are not shown. The screens presented are anonymised recreations.",
+              ],
+            },
+            {
+              type: "image",
+              src: "/projects/campanhas-board.png",
+              width: 1048,
+              height: 640,
+              caption: "Campaign board with creators organised by funnel stage.",
+            },
+            {
+              type: "text",
+              label: "Problem",
+              heading: "Every stage of the funnel lived in a different tool",
+              paragraphs: [
+                "The curation, campaign management and planning teams ran a process fragmented across multiple systems: search tool, project managers, WhatsApp, spreadsheets and email.",
+                "That meant high operational cost, manual rework and difficulty scaling — with no integration between the stages.",
+              ],
+            },
+            {
+              type: "text",
+              label: "Discovery",
+              heading: "Kanban was already the teams' mental model",
+              paragraphs: [
+                "I ran exploratory market research and benchmarking of the main influencer marketing platforms, mapping how curation, planning and management professionals organised their day-to-day flow, which tools they used, where the process stalled and which tasks were repetitive.",
+                "I had a lot of access to these users, since the agency itself had people working in curation.",
+              ],
+              list: [
+                "The process was split across at least 4–5 different tools, with no integration between them.",
+                "Recording negotiations, tracking status and putting reports together were manual tasks that took up a lot of time.",
+                "Kanban logic was already familiar to the teams (many used Monday/Trello), but no solution on the market combined Kanban + creator data + reporting in one environment.",
+                "Overly generic hashtags polluted reports with third-party posts — the user needed to be warned before and during the campaign.",
+              ],
+            },
+            {
+              type: "text",
+              label: "Solution",
+              heading: "A Kanban that also negotiates, measures and reports",
+              paragraphs: [
+                "A Kanban-inspired campaign management feature, integrated into the existing platform: users create campaigns and track them through hashtags and mentions, organise creators into customisable columns, manage negotiation and investment per creator, and automatically generate comparative reports when a creator is moved to the main column.",
+                "All within a single environment, removing the need for external tools.",
+              ],
+            },
+            {
+              type: "screens",
+              heading: "Wireframes",
+              // 7 imagens numa grade de 4 colunas formam sozinhas duas
+              // fileiras: 4 em cima, 3 embaixo.
+              columns: 4,
+              items: [
+                {
+                  src: "/projects/wireframes/1-lista-campanhas.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Home — campaign list.",
+                },
+                {
+                  src: "/projects/wireframes/2-criar-campanha.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Home — creating a campaign.",
+                },
+                {
+                  src: "/projects/wireframes/3-board-creators.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Kanban board, with the creator cards.",
+                },
+                {
+                  src: "/projects/wireframes/4-card-expandido.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Kanban board, with the creator card expanded.",
+                },
+                {
+                  src: "/projects/wireframes/5-busca-resultados.png",
+                  width: 2000,
+                  height: 1422,
+                  caption: "Creator search, with results.",
+                },
+                {
+                  src: "/projects/wireframes/6-relatorio.png",
+                  width: 2000,
+                  height: 2464,
+                  caption: "Campaign report.",
+                },
+                {
+                  src: "/projects/wireframes/7-relatorio-perfil.png",
+                  width: 2000,
+                  height: 1062,
+                  caption: "Report — contracted creator's detailed profile.",
+                },
+              ],
+            },
+            {
+              type: "text",
+              label: "Design decisions",
+              heading: "What changed and why",
+              list: [
+                "Unified search and filter in a single bar: less space for auxiliary controls, prioritising the campaign list, which is the main content. A personal redesign decision — the previous format split the two, using vertical space unnecessarily.",
+                "Preventive alert for heavily used hashtags: when creating the campaign, the system detects popular hashtags and warns that third-party posts may pollute the report. It anticipates a problem that previously only surfaced in the final analysis, and the alert reappears during the campaign so the user can change the hashtag.",
+                "Creator card as a single hub: consolidates negotiation (model, formats, values), internal notes and performance in one place, removing context switching between tools.",
+                "Automatically generated report: when a creator moves to “Approved/In campaign”, the report starts being generated and updated daily, with no manual action. The system detects the keywords relating to the start of the contract.",
+                "Detection of posts outside the period: the system finds relevant publications outside the date window and offers to add them to the report without leaving the screen.",
+                "Bringing the planning list integration forward: in the original roadmap it was scheduled for a later phase. I restructured the prioritisation to bring it into the MVP, because the whole point of the feature was to solve fragmentation — postponing the integration would have kept exactly the problem it set out to solve.",
+              ],
+            },
+            {
+              type: "results",
+              label: "Results",
+              heading: "Fewer tools, less manual work",
+              stats: [
+                { value: "+52%", label: "in the teams' operational productivity" },
+                { value: "−3", label: "external tools outside the ecosystem" },
+                { icon: "clock", value: "hours → min", label: "to put together a report" },
+                { icon: "layers", value: "4", label: "sub-features after launch" },
+              ],
+              paragraphs: [
+                "After launch, I ran a presentation and training workshop for the teams. The feature evolved with integrated sub-features (message centre, link shortener, planning list import and UGC support), all coming from actively listening to the needs raised in those workshops and in conversations with stakeholders.",
+              ],
+            },
+            {
+              type: "screens",
+              heading: "All screens",
+              columns: 4,
+              items: [
+                {
+                  src: "/projects/telas/1-lista-campanhas.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Home — campaign list.",
+                },
+                {
+                  src: "/projects/telas/2-criar-campanha.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Create campaign modal, with the heavily-used-hashtag alert.",
+                },
+                {
+                  src: "/projects/telas/3-board-influenciadores.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Inside the campaign — Influencers tab, the Kanban board.",
+                },
+                {
+                  src: "/projects/telas/4-adicionar-creator.png",
+                  width: 2000,
+                  height: 1302,
+                  caption: "Add creator to campaign modal.",
+                },
+                {
+                  src: "/projects/telas/5-negociacao-creator.png",
+                  width: 2000,
+                  height: 1348,
+                  caption: "Expanded creator card — Negotiation tab.",
+                },
+                {
+                  src: "/projects/telas/6-relatorio.png",
+                  width: 2000,
+                  height: 3111,
+                  caption: "Inside the campaign — Reports tab.",
+                },
+                {
+                  src: "/projects/telas/7-relatorio-perfil.png",
+                  width: 2000,
+                  height: 1159,
+                  caption: "Report — a creator's publication details.",
+                },
+              ],
+            },
           ],
         },
-        {
-          blocks: [
-            { line1: "Project 3 — text about", line2: "another complementary line" },
-            { line1: "Placeholder text about the intro", line2: "another complementary line" },
-          ],
-        },
-        {
-          blocks: [
-            { line1: "Project 4 — text about", line2: "another complementary line" },
-            { line1: "Placeholder text about the intro", line2: "another complementary line" },
-          ],
-        },
-        {
-          blocks: [
-            { line1: "Project 5 — text about", line2: "another complementary line" },
-            { line1: "Placeholder text about the intro", line2: "another complementary line" },
-          ],
-        },
+        {},
+        {},
+        {},
+        {},
       ],
     },
     whatIDo: {
