@@ -1,4 +1,5 @@
 import { useLanguage } from "@/context/LanguageContext";
+import { PirinIcon } from "@/components/icons";
 import { d } from "@/lib/u";
 
 // Figma (Contatos.png): h1 x 112.3 y 205 font ~66;
@@ -39,9 +40,9 @@ export default function ContactSection() {
                 style={{ ...d({ gap: 27 }), height: "100%" }}
                 className="d flex items-center transition-opacity hover:opacity-70 max-lg:gap-4"
               >
-                <span
-                  style={d({ width: 50, height: 45, borderRadius: 10 })}
-                  className="d d-br flex-shrink-0 rounded-md bg-foreground max-lg:h-8 max-lg:w-9"
+                <PirinIcon
+                  style={d({ width: 46, height: 42 })}
+                  className="d flex-shrink-0 text-foreground max-lg:h-8 max-lg:w-8"
                 />
                 <span
                   style={d({ fontSize: 26 })}

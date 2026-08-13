@@ -8,6 +8,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
 import BackgroundDecor from "@/components/BackgroundDecor";
 import HomeSection from "@/components/sections/HomeSection";
+import AboutSection from "@/components/sections/AboutSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import WhatIDoSection from "@/components/sections/WhatIDoSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -15,6 +16,7 @@ import ResumeSection from "@/components/sections/ResumeSection";
 
 const SECTION_COMPONENTS = {
   home: HomeSection,
+  about: AboutSection,
   projects: ProjectsSection,
   whatIDo: WhatIDoSection,
   contact: ContactSection,

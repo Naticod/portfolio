@@ -1,18 +1,21 @@
-import { Baloo_2, Quicksand } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import ClickSound from "@/components/ClickSound";
 
-const baloo = Baloo_2({
-  variable: "--font-baloo",
-  subsets: ["latin"],
+// March (display) para títulos e botões; Italiana para o corpo de texto.
+// Ambas são fontes locais, servidas do próprio domínio. (A Fragille foi
+// descartada por não ter acentos.)
+const march = localFont({
+  src: "./fonts/March-Regular.otf",
+  variable: "--font-march",
   display: "swap",
 });
 
-const quicksand = Quicksand({
-  variable: "--font-quicksand",
-  subsets: ["latin"],
+const italiana = localFont({
+  src: "./fonts/Italiana-Regular.ttf",
+  variable: "--font-italiana",
   display: "swap",
 });
 
@@ -41,7 +44,7 @@ export default function RootLayout({ children }) {
     <html
       lang="pt"
       suppressHydrationWarning
-      className={`${baloo.variable} ${quicksand.variable} h-full antialiased`}
+      className={`${march.variable} ${italiana.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

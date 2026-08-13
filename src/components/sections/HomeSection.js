@@ -1,69 +1,46 @@
-import Image from "next/image";
-import { useLanguage } from "@/context/LanguageContext";
+import { StarlightIcon } from "@/components/icons";
 import { d } from "@/lib/u";
 
-// Figma (inicio.png): h1 x 113 y 180.3; foto no lugar do card
-// x 1042.7–1507.7, y 222.7–825.0.
+// Início: a tela de abertura do inicio.svg — só a moldura decorada com um campo
+// de estrelas Starlight espalhadas. O texto de apresentação e a foto ficam na
+// seção "Sobre mim". A logo, as linhas, a estrela do canto e os toggles são
+// globais (BackgroundDecor / PortfolioShell).
 //
-// A bio é longa demais para o espaço do design, então a coluna de texto
-// rola dentro de si mesma — a página em si continua sem rolagem.
-export default function HomeSection() {
-  const { t } = useLanguage();
+// As posições das estrelas seguem o espalhamento do mockup inicio.svg (que é
+// 1440×768), adaptadas para o frame 1920×1024 — são decorativas.
+const STARS = [
+  { left: 1050, top: 372, size: 88, opacity: "text-white/70" },
+  { left: 560, top: 470, size: 52, opacity: "text-white/60" },
+  { left: 900, top: 648, size: 30, opacity: "text-white/55" },
+  { left: 1360, top: 560, size: 34, opacity: "text-white/45" },
+  { left: 470, top: 772, size: 42, opacity: "text-white/55" },
+  { left: 720, top: 884, size: 28, opacity: "text-white/45" },
+  { left: 1420, top: 838, size: 24, opacity: "text-white/40" },
+];
 
+export default function HomeSection() {
   return (
     <>
-      <h1
-        data-abs
-        style={d({ left: 113, top: 174, fontSize: 49, lineHeight: 66.4 })}
-        className="d font-medium tracking-tight max-lg:text-[clamp(1.25rem,5.6vw,1.75rem)] max-lg:leading-snug"
-      >
-        {t.hero.greetingLine1}{" "}
-        {/* A quebra é do design desktop. No mobile a frase flui contínua,
-            senão "mas" fica sozinho numa linha. */}
-        <br className="max-lg:hidden" />
-        {t.hero.greetingLine2}
-      </h1>
-
-      <div
-        data-abs
-        // O h1 começa em 174 e ocupa duas linhas de 66.4 → termina em 306.8.
-        // 18px de respiro depois dele = 325.
-        style={d({ left: 113, top: 325, width: 850, height: 505 })}
-        className="bio-scroll d overflow-y-auto overscroll-contain pr-6 max-lg:mt-4 max-lg:min-h-0 max-lg:flex-1 max-lg:pr-3"
-      >
-        {t.hero.paragraphs.map((paragraph, index) => {
-          const isLast = index === t.hero.paragraphs.length - 1;
-          return (
-            <p
-              key={index}
-              // O último parágrafo não leva margem: os 16px sobrando no fim
-              // bastavam para o texto passar da área e criar rolagem.
-              style={d({ fontSize: 23, lineHeight: 31, marginBottom: isLast ? 0 : 12 })}
-              className={`d d-mb font-medium text-foreground/95 max-lg:mb-3 max-lg:text-[clamp(0.8rem,3.2vw,0.95rem)] max-lg:last:mb-0 ${
-                paragraph.italic ? "italic text-foreground/70" : ""
-              }`}
-            >
-              {paragraph.text}
-            </p>
-          );
-        })}
+      {/* Desktop: campo de estrelas espalhado pelo frame. */}
+      <div aria-hidden="true" className="max-lg:hidden">
+        {STARS.map((s, i) => (
+          <StarlightIcon
+            key={i}
+            data-abs
+            style={d({ left: s.left, top: s.top, width: s.size, height: s.size })}
+            className={`d ${s.opacity}`}
+          />
+        ))}
       </div>
 
+      {/* Mobile: um pequeno agrupamento centralizado, para a tela não ficar vazia. */}
       <div
-        data-abs
-        style={d({ left: 1042.7, top: 222.7, width: 465, height: 602.3, borderWidth: 3 })}
-        // No mobile a foto leva mais espaço que o texto, senão a proporção
-        // do arco a deixa estreita demais.
-        className="photo-frame photo-arch d d-bw relative overflow-hidden border-foreground bg-surface max-lg:mt-5 max-lg:min-h-0 max-lg:flex-[1.7] max-lg:border-2"
+        aria-hidden="true"
+        className="hidden flex-1 items-center justify-center gap-6 max-lg:flex"
       >
-        <Image
-          src="/foto.jpg"
-          alt="Retrato de Natali"
-          fill
-          sizes="(max-width: 1023px) 90vw, 465px"
-          priority
-          className="photo-vintage object-cover"
-        />
+        <StarlightIcon className="h-8 w-8 text-white/50" />
+        <StarlightIcon className="h-16 w-16 text-white/75" />
+        <StarlightIcon className="h-6 w-6 text-white/40" />
       </div>
     </>
   );

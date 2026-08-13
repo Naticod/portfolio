@@ -26,42 +26,49 @@
 @property --d-tx { syntax: "*"; inherits: false; }
 
 :root {
-  --background: #fffcf7;
-  --foreground: #1a1a1a;
-  --muted: #6b6558;
-  --accent: #b9a8e8;
+  --background: #f3eefb;
+  /* A moldura (títulos, textos, linhas, estrela) é branca nos dois temas — o
+     fundo é sempre o degradê roxo. As superfícies próprias (modal e cartão do
+     accordion) repõem o --foreground legível mais abaixo. */
+  --foreground: #ffffff;
+  --muted: #e7dff0;
+  --accent: #7677ba;
   --surface: #ffffff;
 
-  /* Fundo conforme inicio.svg: base creme, três manchas borradas e um
-     grão fino. O pontilhado do arquivo vem a 25%; aqui fica mais suave. */
-  --grid-dot: rgba(13, 13, 13, 0.15);
-  --grid-gap: 30px;
-  --bg-base: #fffcf7;
-  --blob-violet: rgba(195, 181, 221, 0.34); /* #C3B5DD */
-  --blob-blue: rgba(177, 208, 255, 0.42); /* #B1D0FF */
-  --blob-mauve: rgba(169, 137, 171, 0.3); /* #A989AB */
-  --grain: rgba(142, 119, 87, 0.25);
-  --grain-opacity: 0.42;
+  /* Fundo conforme inicio.svg: base lavanda com um degradê roxo, uma mancha
+     rosada (vinho #600624) borrada no alto à esquerda e um respiro quente
+     (#FFF4B0) na base à direita. Sem pontilhado — o design é liso. */
+  --bg-base: #948bbb;
+  --bg-image:
+    /* respiro quente #FFF4B0 no alto à esquerda */
+    radial-gradient(ellipse 46% 34% at 15% 3%, rgba(255, 244, 176, 0.32), transparent 62%),
+    /* bloom vinho #600624 grande, no quadrante superior esquerdo */
+    radial-gradient(ellipse 70% 60% at 27% 22%, rgba(96, 6, 36, 0.48), transparent 70%),
+    /* campo roxo #6F66A4 / #7677BA no centro-direita */
+    radial-gradient(ellipse 96% 88% at 64% 54%, rgba(111, 102, 164, 0.5), transparent 82%),
+    /* base lavanda (derivada do #6F66A4) */
+    linear-gradient(158deg, #a49ac6 0%, #948abb 52%, #8a81b6 100%);
+  --grain-opacity: 0.14;
 
   /* 1 unidade = 1px do Figma (canvas 1920x1024). No mobile o layout usa fluxo normal. */
   --u: 1px;
 }
 
 .dark {
-  --background: #16131f;
-  --foreground: #f5f2ea;
-  --muted: #b3ab9c;
-  --surface: #1e1a2b;
+  --background: #2a0323;
+  --foreground: #ffffff;
+  --muted: #c2adc4;
+  --surface: #2b0925;
 
-  /* Mesma composição do tema claro, com as manchas rebaixadas para não
-     brilharem sobre o fundo escuro. */
-  --grid-dot: rgba(245, 242, 234, 0.12);
-  --bg-base: #16131f;
-  --blob-violet: rgba(140, 122, 184, 0.32);
-  --blob-blue: rgba(96, 133, 196, 0.3);
-  --blob-mauve: rgba(169, 137, 171, 0.28);
-  --grain: rgba(180, 160, 130, 0.2);
-  --grain-opacity: 0.35;
+  /* Modo escuro conforme inicio - Modo dark.svg: base ameixa quase preta
+     (#2A0323) com um brilho central que passa por #3D0533, #6E095B e #600624. */
+  --bg-base: #2a0323;
+  --bg-image:
+    radial-gradient(ellipse 75% 62% at 60% 50%, rgba(110, 9, 91, 0.5), transparent 72%),
+    radial-gradient(ellipse 95% 85% at 48% 42%, rgba(61, 5, 51, 0.85), transparent 82%),
+    radial-gradient(ellipse 50% 45% at 15% 12%, rgba(96, 6, 36, 0.4), transparent 70%),
+    linear-gradient(158deg, #2b0925 0%, #2a0323 55%, #360630 100%);
+  --grain-opacity: 0.22;
 }
 
 @theme inline {
@@ -70,13 +77,48 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-surface: var(--surface);
-  --font-sans: var(--font-quicksand);
+  --font-sans: var(--font-italiana);
+  /* Face de display dos títulos/botões: March (substituta da Fragille, com acentos). */
+  --font-display: var(--font-march);
 }
 
+/* Corpo de texto em Italiana. É uma didone fina, então recebe um traço de
+   0.3px na própria cor para ganhar peso e legibilidade (pedido do design). */
 body {
   color: var(--foreground);
-  font-family: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-italiana), ui-serif, Georgia, serif;
+  -webkit-text-stroke: 0.3px currentColor;
   transition: color 0.3s ease;
+}
+
+/* Títulos e botões usam a fonte de display (March, em --font-display). Sem o
+   traço de 0.3 do corpo — títulos não levam stroke. A logo é imagem, à parte. */
+h1, h2, h3, h4, h5, h6,
+button, [role="button"], summary,
+nav, .font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  -webkit-text-stroke: 0;
+}
+
+/* Campos de formulário voltam ao traço zero para não engrossar a digitação. */
+input, textarea, select {
+  -webkit-text-stroke: 0;
+}
+
+/* Superfícies com fundo próprio (modal de projeto e cartão do accordion) NÃO
+   herdam o texto branco da moldura — senão o texto sumiria sobre o claro.
+   Elas repõem o --foreground legível conforme o tema. */
+.modal-panel,
+.surface-card {
+  --foreground: #100f0f;
+  /* Reestabelece a cor a partir da variável reposta — senão o texto que só
+     herda `color` do body continuaria branco (branco no branco). */
+  color: var(--foreground);
+}
+
+.dark .modal-panel,
+.dark .surface-card {
+  --foreground: #f5f2ea;
 }
 
 /* O conteúdo fica acima da camada de grão. */
@@ -85,58 +127,21 @@ body {
   z-index: 1;
 }
 
-/* Ponteiro em forma de estrela, em todo o site. O hotspot (13 13) fica no
-   centro da estrela, que é onde o clique realmente acontece.
-   No tema escuro a estrela é clara, senão sumiria no fundo. */
-:root {
-  --cursor: url("/cursor.svg") 11 11, auto;
-}
-
-.dark {
-  --cursor: url("/cursor-dark.svg") 11 11, auto;
-}
-
-body,
+/* Ponteiro normal do sistema. Os elementos clicáveis mantêm a mãozinha. */
 button,
 a,
 [role="button"],
 summary {
-  cursor: var(--cursor);
+  cursor: pointer;
 }
 
-/* Em campos de texto o cursor padrão ajuda a posicionar o texto. */
-input,
-textarea,
-select {
-  cursor: auto;
-}
-
-/* Aparelhos de toque não têm ponteiro: evita o custo de baixar o SVG. */
-@media (hover: none) {
-  body,
-  button,
-  a,
-  [role="button"],
-  summary {
-    cursor: auto;
-  }
-}
-
-/* Fundo do site, traduzido de inicio.svg.
-   De cima para baixo: pontilhado, mancha rosada no topo à direita, mancha
-   azul à direita, mancha lilás na base à esquerda e a base creme.
-   O grão fica numa camada à parte (::before), porque precisa de mistura. */
+/* Fundo do site, traduzido de inicio.svg / inicio - Modo dark.svg: um degradê
+   roxo (ameixa no escuro) liso, com manchas borradas por cima. O grão fica
+   numa camada à parte (::before), porque precisa de mistura. */
 .bg-portfolio {
   position: relative;
   background-color: var(--bg-base);
-  background-image:
-    radial-gradient(circle, var(--grid-dot) 1px, transparent 1px),
-    /* rosa no alto à direita, azul no centro-direita e lilás na base à
-       esquerda — a metade esquerda de cima fica quase só a base creme. */
-    radial-gradient(ellipse 46% 40% at 94% 4%, var(--blob-mauve), transparent 72%),
-    radial-gradient(ellipse 64% 62% at 62% 46%, var(--blob-blue), transparent 70%),
-    radial-gradient(ellipse 46% 52% at 10% 92%, var(--blob-violet), transparent 72%);
-  background-size: var(--grid-gap) var(--grid-gap), cover, cover, cover;
+  background-image: var(--bg-image);
   background-attachment: fixed;
 }
 
@@ -154,13 +159,6 @@ select {
 
 .dark .bg-portfolio::before {
   mix-blend-mode: screen;
-}
-
-/* No mobile a grade fica mais fechada, acompanhando a tela menor. */
-@media (max-width: 1023px) {
-  :root {
-    --grid-gap: 22px;
-  }
 }
 
 /* Moldura em arco (Rectangle 22.svg): topo em semicírculo — raio igual a

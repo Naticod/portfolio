@@ -90,17 +90,17 @@ export default function ProjectModal({ project, labels, onClose }) {
           type="button"
           onClick={onClose}
           aria-label={labels.close}
-          style={d({ right: 31, top: 30, width: 40, height: 40 })}
-          className="d absolute z-10 flex items-center justify-center rounded-full bg-surface/70 text-foreground transition-opacity hover:opacity-60 max-lg:right-3 max-lg:top-3 max-lg:h-10 max-lg:w-10"
+          style={d({ right: 31, top: 30, width: 50, height: 50 })}
+          className="d absolute z-10 flex items-center justify-center rounded-full bg-foreground text-background shadow-lg ring-1 ring-black/10 transition-transform hover:scale-105 max-lg:right-3 max-lg:top-3 max-lg:h-12 max-lg:w-12"
         >
           <svg
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.4"
             strokeLinecap="round"
-            style={d({ width: 22, height: 22 })}
-            className="d max-lg:h-5 max-lg:w-5"
+            style={d({ width: 28, height: 28 })}
+            className="d max-lg:h-6 max-lg:w-6"
             aria-hidden="true"
           >
             <path d="M6 6l12 12M18 6L6 18" />

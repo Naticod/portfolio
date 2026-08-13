@@ -164,7 +164,15 @@ function ScreensSection({ section, alt }) {
         style={d({ gap: isGrid ? 32 : 56 })}
         className={`d max-lg:gap-6 ${
           isGrid
-            ? "grid grid-cols-4 max-lg:grid-cols-2"
+            ? // No mobile são 2 colunas; no desktop, o que a seção pedir
+              // (2, 3 ou 4 conforme o número de imagens).
+              `grid grid-cols-2 ${
+                section.columns === 2
+                  ? "lg:grid-cols-2"
+                  : section.columns === 3
+                    ? "lg:grid-cols-3"
+                    : "lg:grid-cols-4"
+              }`
             : "flex flex-col max-lg:gap-8"
         }`}
       >
@@ -238,6 +246,46 @@ function GallerySection({ section }) {
   );
 }
 
+/** Lista de links para material externo (Medium etc.). Cada link abre em
+    nova aba, protegido com noopener. */
+function LinksSection({ section }) {
+  return (
+    <section>
+      <TwoColumns>
+        <SectionAside label={section.label} heading={section.heading} />
+        <ul style={d({ gap: 14 })} className="d flex flex-col max-lg:gap-2.5">
+          {section.links.map((link, index) => (
+            <li key={index}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={d({ fontSize: 19, gap: 12, paddingBottom: 14 })}
+                className="d d-pb group flex items-center border-b border-foreground/15 font-medium text-foreground/90 transition-colors hover:text-foreground max-lg:pb-2.5 max-lg:text-sm"
+              >
+                {link.label}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={d({ width: 18, height: 18 })}
+                  className="d shrink-0 text-foreground/40 transition-colors group-hover:text-foreground max-lg:h-4 max-lg:w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M7 17L17 7M7 7h10v10" />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </TwoColumns>
+    </section>
+  );
+}
+
 /** Faixa preta sólida com os números e ícones de impacto. */
 function ResultsSection({ section }) {
   return (
@@ -300,6 +348,7 @@ const RENDERERS = {
   gallery: GallerySection,
   results: ResultsSection,
   screens: ScreensSection,
+  links: LinksSection,
 };
 
 /** Abertura: frase-síntese e ficha técnica (os números ficam em Resultados). */

@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { PlusIcon } from "@/components/icons";
+import { PlusIcon, PirinIcon } from "@/components/icons";
 import { d } from "@/lib/u";
 
 // Figma (O que eu faço.png): h1 x 114.7 y 203.3 font ~66;
@@ -63,24 +62,11 @@ export default function WhatIDoSection() {
                 style={{ ...d({ height: 45, gap: 27 }), width: "100%" }}
                 className="d flex items-center text-left max-lg:gap-3 max-lg:py-2.5"
               >
-                {/* rounded-full numa caixa não quadrada (50x45) já forma a
-                    elipse pedida — não precisa de border-radius calculado. */}
-                <span
-                  style={d({ width: 50, height: 45 })}
-                  className="d relative flex flex-shrink-0 items-center justify-center rounded-full bg-foreground max-lg:h-7 max-lg:w-8"
-                >
-                  <Image
-                    src="/icons/brilho-aneis.svg"
-                    alt=""
-                    width={103}
-                    height={103}
-                    aria-hidden="true"
-                    // O ícone é branco puro (feito pra fundo escuro); no tema
-                    // escuro a bolha vira clara, então invertemos pra preto.
-                    style={d({ width: 28, height: 28 })}
-                    className="d dark:invert max-lg:h-4 max-lg:w-4"
-                  />
-                </span>
+                {/* Marcador do item: estrela Pirin (branca sobre o fundo roxo). */}
+                <PirinIcon
+                  style={d({ width: 46, height: 42 })}
+                  className="d flex-shrink-0 text-foreground max-lg:h-7 max-lg:w-7"
+                />
                 <span
                   style={d({ fontSize: 26 })}
                   className="d flex-1 text-left font-bold max-lg:text-base"
@@ -109,7 +95,7 @@ export default function WhatIDoSection() {
                 <div className="min-h-0 overflow-hidden">
                   <div
                     style={d({ marginTop: 28, marginBottom: 20, borderRadius: 20 })}
-                    className="d d-mt d-mb d-br rounded-2xl border border-foreground/20 bg-surface/60 max-lg:mb-2 max-lg:mt-7"
+                    className="surface-card d d-mt d-mb d-br rounded-2xl border border-foreground/20 bg-surface/60 max-lg:mb-2 max-lg:mt-7"
                   >
                     <p
                       style={d({ fontSize: 20, lineHeight: 30, padding: 28 })}

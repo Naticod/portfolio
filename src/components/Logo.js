@@ -10,15 +10,15 @@ export default function Logo() {
       className="d z-40 max-lg:mb-8 max-lg:flex max-lg:justify-center"
     >
       <Image
-        src="/logo.svg"
+        src="/logo-branco.svg"
         alt="Natali Design"
-        width={2004}
-        height={448}
+        width={194}
+        height={60}
         priority
-        // Esta versão da marca é horizontal (proporção ~4,5:1), então a altura
-        // é menor que a da versão empilhada para a largura não dominar o topo.
+        // "Logo final - Branco": a marca é sempre branca (nos dois temas),
+        // como no inicio.svg. Nada de inverter no modo claro.
         style={d({ height: 58 })}
-        className="d w-auto dark:invert max-lg:h-10"
+        className="d w-auto max-lg:h-10"
       />
     </div>
   );

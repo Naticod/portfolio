@@ -11,20 +11,21 @@ import { d } from "@/lib/u";
 // blocos de texto y 350 e 455.3, font ~24, line pitch 30;
 // setas x 1014.3, y 496 e 588.
 //
-// A pilha tem 5 posições. O projeto ativo fica na posição 0 (o card grande do
-// Figma, x 1073.3–1526.3 / y 229.3–820.0) e os demais nas posições que o
-// design usava como cards decorativos. Ao navegar, cada card desliza para a
-// posição seguinte — a pilha inteira se move, não só o card da frente.
-// Os 4 cards de trás usam um tamanho padrão (228x138); só muda a posição
-// de cada um. O card em destaque (posição "0") continua no tamanho do Figma.
-const BACK_CARD_SIZE = { width: 228, height: 138 };
+// A pilha tem 5 posições. O projeto ativo fica na posição 0 e os demais nas
+// posições decorativas ao redor. Ao navegar, cada card desliza para a posição
+// seguinte — a pilha inteira se move, não só o card da frente.
+//
+// Toda a pilha foi reduzida em 35% (escala 0,65) e reposicionada mais para
+// cima e à direita, logo abaixo da linha do título "Projetos", em vez de ficar
+// centralizada verticalmente. O card em destaque (posição "0") é o maior.
+const BACK_CARD_SIZE = { width: 148.2, height: 89.7 };
 
 const SLOTS = {
-  "-2": { left: 1430.7, top: 36, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
-  "-1": { left: 1300, top: 76, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
-  "0": { left: 1073.3, top: 229.3, width: 453, height: 590.7, borderRadius: 28, borderWidth: 2.5 },
-  "1": { left: 1302.7, top: 830, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
-  "2": { left: 1400, top: 890, ...BACK_CARD_SIZE, borderRadius: 24, borderWidth: 1 },
+  "-2": { left: 1472.3, top: 200, ...BACK_CARD_SIZE, borderRadius: 16, borderWidth: 1 },
+  "-1": { left: 1387.4, top: 226, ...BACK_CARD_SIZE, borderRadius: 16, borderWidth: 1 },
+  "0": { left: 1240, top: 325.7, width: 294.5, height: 384, borderRadius: 18, borderWidth: 2 },
+  "1": { left: 1389.1, top: 716.1, ...BACK_CARD_SIZE, borderRadius: 16, borderWidth: 1 },
+  "2": { left: 1452.4, top: 755.1, ...BACK_CARD_SIZE, borderRadius: 16, borderWidth: 1 },
 };
 
 const SLOT_STYLE = {
@@ -94,26 +95,30 @@ export default function ProjectsSection() {
 
       </div>
 
+      {/* Botões de navegação.svg: dois círculos brancos (fill 20%, traço 1,
+          seta branca), empilhados, no lugar das setas antigas. */}
       <div
         data-abs
-        style={d({ left: 1006, top: 490, gap: 60 })}
-        className="d z-20 flex flex-col items-center text-foreground/70 max-lg:static max-lg:mt-6 max-lg:flex-row max-lg:gap-6"
+        style={d({ left: 1180, top: 468, gap: 32 })}
+        className="d z-20 flex flex-col items-center max-lg:static max-lg:mt-6 max-lg:flex-row max-lg:gap-6"
       >
         <button
           type="button"
           onClick={() => go(-1)}
           aria-label={t.projects.previous}
-          className="transition-colors hover:text-foreground"
+          style={d({ width: 37, height: 37, borderWidth: 1 })}
+          className="d d-bw flex items-center justify-center rounded-full border border-white/70 bg-white/20 text-white transition-colors hover:bg-black max-lg:h-10 max-lg:w-10"
         >
-          <ArrowUpIcon style={d({ width: 30, height: 30 })} className="d max-lg:h-6 max-lg:w-6" />
+          <ArrowUpIcon style={d({ width: 18, height: 18 })} className="d max-lg:h-5 max-lg:w-5" />
         </button>
         <button
           type="button"
           onClick={() => go(1)}
           aria-label={t.projects.next}
-          className="transition-colors hover:text-foreground"
+          style={d({ width: 37, height: 37, borderWidth: 1 })}
+          className="d d-bw flex items-center justify-center rounded-full border border-white/70 bg-white/20 text-white transition-colors hover:bg-black max-lg:h-10 max-lg:w-10"
         >
-          <ArrowDownIcon style={d({ width: 30, height: 30 })} className="d max-lg:h-6 max-lg:w-6" />
+          <ArrowDownIcon style={d({ width: 18, height: 18 })} className="d max-lg:h-5 max-lg:w-5" />
         </button>
       </div>
 
@@ -162,9 +167,9 @@ export default function ProjectsSection() {
                 alt=""
                 aria-hidden="true"
                 fill
-                // O card em destaque é o maior (453 no design); os de trás
-                // têm 228, então pedimos a imagem no tamanho certo pra cada.
-                sizes={isActive ? "(max-width: 1023px) 92vw, 453px" : "228px"}
+                // O card em destaque é o maior (294 no design); os de trás
+                // têm 148, então pedimos a imagem no tamanho certo pra cada.
+                sizes={isActive ? "(max-width: 1023px) 92vw, 295px" : "148px"}
                 className="object-cover object-top"
               />
             ) : (
@@ -174,7 +179,7 @@ export default function ProjectsSection() {
                 className="flex h-full w-full items-center justify-center text-foreground/15"
               >
                 <span
-                  style={d({ fontSize: isActive ? 160 : 60 })}
+                  style={d({ fontSize: isActive ? 104 : 39 })}
                   className="d font-medium max-lg:text-[clamp(3.5rem,20vw,6rem)]"
                 >
                   {String(index + 1).padStart(2, "0")}
