@@ -262,6 +262,40 @@ summary {
   }
 }
 
+/* Barra de carregamento da tela de Início: um trilho translúcido com um
+   segmento branco deslizando de ponta a ponta, em loop (indeterminada). */
+.loading-bar {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.loading-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 45%;
+  border-radius: 999px;
+  background: #ffffff;
+  animation: loading-slide 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-slide {
+  0% { left: -45%; }
+  100% { left: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-bar::after {
+    animation: none;
+    left: 28%;
+    width: 44%;
+  }
+}
+
 /* Pilha de cards do carrossel: cada card desliza da posição atual para a
    seguinte, como um baralho sendo folheado na vertical. */
 .carousel-card {

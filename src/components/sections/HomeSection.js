@@ -1,4 +1,4 @@
-import { StarlightIcon } from "@/components/icons";
+import { StarlightIcon, LogoMarkIcon } from "@/components/icons";
 import { d } from "@/lib/u";
 
 // Início: a tela de abertura do inicio.svg — só a moldura decorada com um campo
@@ -33,14 +33,24 @@ export default function HomeSection() {
         ))}
       </div>
 
-      {/* Mobile: um pequeno agrupamento centralizado, para a tela não ficar vazia. */}
+      {/* Desktop: símbolo da marca no centro do frame + barra de carregamento. */}
+      <div
+        data-abs
+        aria-hidden="true"
+        style={{ ...d({ gap: 30 }), left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
+        className="d z-10 flex flex-col items-center max-lg:hidden"
+      >
+        <LogoMarkIcon style={d({ width: 104, height: 104 })} className="d text-foreground" />
+        <span style={d({ width: 220, height: 4 })} className="loading-bar d" />
+      </div>
+
+      {/* Mobile: mesmo símbolo + barra, centralizados. */}
       <div
         aria-hidden="true"
-        className="hidden flex-1 items-center justify-center gap-6 max-lg:flex"
+        className="hidden flex-1 flex-col items-center justify-center gap-6 max-lg:flex"
       >
-        <StarlightIcon className="h-8 w-8 text-white/50" />
-        <StarlightIcon className="h-16 w-16 text-white/75" />
-        <StarlightIcon className="h-6 w-6 text-white/40" />
+        <LogoMarkIcon className="h-24 w-24 text-white" />
+        <span className="loading-bar h-1 w-44" />
       </div>
     </>
   );
