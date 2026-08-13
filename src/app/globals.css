@@ -114,10 +114,9 @@ input, textarea, select {
   color: var(--foreground);
 }
 
-/* O cartão do accordion acompanha o tema (fundo translúcido). O modal, ao
-   contrário, tem fundo fixo claro (#E1DDEB) nos dois temas, então seu texto
-   permanece escuro mesmo no modo escuro — por isso só o surface-card é
-   sobrescrito aqui. */
+/* No modo escuro, o modal tem fundo #472C35 e o cartão do accordion fica
+   translúcido sobre a ameixa — ambos pedem texto claro para contrastar. */
+.dark .modal-panel,
 .dark .surface-card {
   --foreground: #f5f2ea;
 }
