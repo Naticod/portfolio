@@ -2,6 +2,7 @@
 
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { useLoading } from "@/context/LoadingContext";
 import { SunIcon, MoonIcon } from "@/components/icons";
 import { d } from "@/lib/u";
 
@@ -9,6 +10,7 @@ import { d } from "@/lib/u";
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
   const { t } = useLanguage();
+  const { isLoading } = useLoading();
 
   // Pílula branca translúcida (igual nos dois temas, como no inicio.svg): o
   // lado ativo vira um círculo escuro com o ícone claro; o inativo fica só o
@@ -23,10 +25,13 @@ export default function ThemeToggle() {
       data-abs
       type="button"
       onClick={toggleTheme}
+      disabled={isLoading}
       aria-label={t.themeToggle}
       aria-pressed={theme === "dark"}
       style={d({ left: 50.7, bottom: 36.3, width: 105, height: 50.4, padding: 4, borderWidth: 1.5 })}
-      className="d d-p d-bw z-40 flex items-center justify-between rounded-full border border-white/55 bg-white/25 backdrop-blur-sm max-lg:fixed max-lg:bottom-5 max-lg:left-5 max-lg:h-11 max-lg:w-24 max-lg:border max-lg:p-1"
+      className={`d d-p d-bw z-40 flex items-center justify-between rounded-full border border-white/55 bg-white/25 backdrop-blur-sm transition-opacity duration-500 max-lg:fixed max-lg:bottom-5 max-lg:left-5 max-lg:h-11 max-lg:w-24 max-lg:border max-lg:p-1 ${
+        isLoading ? "pointer-events-none opacity-25" : "opacity-100"
+      }`}
     >
       <span style={d({ width: 42, height: 42 })} className={knob(theme === "light")}>
         <SunIcon style={d({ width: 20, height: 20 })} className="d max-lg:h-4 max-lg:w-4" />

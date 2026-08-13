@@ -1,4 +1,7 @@
+"use client";
+
 import { StarlightIcon, LogoMarkIcon } from "@/components/icons";
+import { useLoading } from "@/context/LoadingContext";
 import { d } from "@/lib/u";
 
 // Início: a tela de abertura do inicio.svg — só a moldura decorada com um campo
@@ -19,6 +22,10 @@ const STARS = [
 ];
 
 export default function HomeSection() {
+  // A barra só aparece enquanto o portfólio "carrega"; depois some e fica só
+  // o símbolo. O ciclo se repete a cada novo acesso (recarregar a página).
+  const { isLoading } = useLoading();
+
   return (
     <>
       {/* Desktop: campo de estrelas espalhado pelo frame. */}
@@ -41,7 +48,9 @@ export default function HomeSection() {
         className="d z-10 flex flex-col items-center max-lg:hidden"
       >
         <LogoMarkIcon style={d({ width: 104, height: 104 })} className="d text-foreground" />
-        <span style={d({ width: 220, height: 4 })} className="loading-bar d" />
+        {isLoading && (
+          <span style={d({ width: 220, height: 4 })} className="loading-bar d" />
+        )}
       </div>
 
       {/* Mobile: mesmo símbolo + barra, centralizados. */}
@@ -50,7 +59,7 @@ export default function HomeSection() {
         className="hidden flex-1 flex-col items-center justify-center gap-6 max-lg:flex"
       >
         <LogoMarkIcon className="h-24 w-24 text-white" />
-        <span className="loading-bar h-1 w-44" />
+        {isLoading && <span className="loading-bar h-1 w-44" />}
       </div>
     </>
   );

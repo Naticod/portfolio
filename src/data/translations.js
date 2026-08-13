@@ -5,7 +5,7 @@ export const translations = {
       about: "Sobre mim",
       projects: "Projetos",
       contact: "Contatos",
-      whatIDo: "O que faço",
+      whatIDo: "Habilidades",
       resume: "Resume",
     },
     hero: {
@@ -596,7 +596,7 @@ export const translations = {
       ],
     },
     whatIDo: {
-      title: "O que eu faço",
+      title: "Minhas Habilidades",
       items: [
         {
           title: "Product Design",
@@ -665,7 +665,7 @@ export const translations = {
       about: "About me",
       projects: "Projects",
       contact: "Contact",
-      whatIDo: "What I do",
+      whatIDo: "Skills",
       resume: "Resume",
     },
     hero: {
@@ -1248,7 +1248,7 @@ export const translations = {
       ],
     },
     whatIDo: {
-      title: "What I do",
+      title: "My Skills",
       items: [
         {
           title: "Product Design",

@@ -77,17 +77,15 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-surface: var(--surface);
-  --font-sans: var(--font-italiana);
+  --font-sans: var(--font-radley);
   /* Face de display dos títulos/botões: March (substituta da Fragille, com acentos). */
   --font-display: var(--font-march);
 }
 
-/* Corpo de texto em Italiana. É uma didone fina, então recebe um traço de
-   0.3px na própria cor para ganhar peso e legibilidade (pedido do design). */
+/* Corpo de texto em Radley (serifada legível, com acentos). */
 body {
   color: var(--foreground);
-  font-family: var(--font-italiana), ui-serif, Georgia, serif;
-  -webkit-text-stroke: 0.3px currentColor;
+  font-family: var(--font-radley), ui-serif, Georgia, serif;
   transition: color 0.3s ease;
 }
 
@@ -116,7 +114,10 @@ input, textarea, select {
   color: var(--foreground);
 }
 
-.dark .modal-panel,
+/* O cartão do accordion acompanha o tema (fundo translúcido). O modal, ao
+   contrário, tem fundo fixo claro (#E1DDEB) nos dois temas, então seu texto
+   permanece escuro mesmo no modo escuro — por isso só o surface-card é
+   sobrescrito aqui. */
 .dark .surface-card {
   --foreground: #f5f2ea;
 }
@@ -262,8 +263,9 @@ summary {
   }
 }
 
-/* Barra de carregamento da tela de Início: um trilho translúcido com um
-   segmento branco deslizando de ponta a ponta, em loop (indeterminada). */
+/* Barra de carregamento da tela de Início: um trilho translúcido que enche de
+   branco de 0 a 100% em 4s (mesma duração do gate em LoadingContext). Ao fim,
+   a barra é removida do DOM e fica só o símbolo. */
 .loading-bar {
   position: relative;
   overflow: hidden;
@@ -276,24 +278,16 @@ summary {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -45%;
-  width: 45%;
+  left: 0;
+  width: 0;
   border-radius: 999px;
   background: #ffffff;
-  animation: loading-slide 1.5s ease-in-out infinite;
+  animation: loading-fill 4s ease-out forwards;
 }
 
-@keyframes loading-slide {
-  0% { left: -45%; }
-  100% { left: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loading-bar::after {
-    animation: none;
-    left: 28%;
-    width: 44%;
-  }
+@keyframes loading-fill {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 /* Pilha de cards do carrossel: cada card desliza da posição atual para a

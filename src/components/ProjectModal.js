@@ -59,7 +59,7 @@ export default function ProjectModal({ project, labels, onClose }) {
         style={d({ left: 30, top: 30, width: 1860, height: 964, borderRadius: 28 })}
         // Fundo sólido: o case tem muito texto, e qualquer transparência
         // deixaria o conteúdo de trás competindo com a leitura.
-        className="modal-panel d d-br absolute overflow-hidden bg-surface shadow-2xl max-lg:relative max-lg:h-[86dvh] max-lg:w-[92vw] max-lg:rounded-2xl"
+        className="modal-panel d d-br absolute overflow-hidden bg-[#e1ddeb] shadow-2xl max-lg:relative max-lg:h-[86dvh] max-lg:w-[92vw] max-lg:rounded-2xl"
       >
         {/* Área rolável: o modal é o único lugar do site com scroll. */}
         <div
@@ -91,7 +91,7 @@ export default function ProjectModal({ project, labels, onClose }) {
           onClick={onClose}
           aria-label={labels.close}
           style={d({ right: 31, top: 30, width: 50, height: 50 })}
-          className="d absolute z-10 flex items-center justify-center rounded-full bg-foreground text-background shadow-lg ring-1 ring-black/10 transition-transform hover:scale-105 max-lg:right-3 max-lg:top-3 max-lg:h-12 max-lg:w-12"
+          className="d absolute z-10 flex items-center justify-center rounded-full bg-foreground text-white shadow-lg ring-1 ring-black/10 transition-transform hover:scale-105 max-lg:right-3 max-lg:top-3 max-lg:h-12 max-lg:w-12"
         >
           <svg
             viewBox="0 0 24 24"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
+import { useLoading } from "@/context/LoadingContext";
 import { d } from "@/lib/u";
 
 const SECTIONS = ["home", "about", "projects", "contact", "whatIDo", "resume"];
@@ -9,13 +10,16 @@ const SECTIONS = ["home", "about", "projects", "contact", "whatIDo", "resume"];
 // primeira pill top 109.3, margem direita 89.7.
 export default function NavPills({ active, onNavigate }) {
   const { t } = useLanguage();
+  const { isLoading } = useLoading();
 
   return (
     <nav
       data-abs
       aria-label={t.nav.home}
       style={d({ right: 89.7, top: 109.3, gap: 8.3 })}
-      className="d z-40 hidden flex-col lg:flex"
+      className={`d z-40 hidden flex-col transition-opacity duration-500 lg:flex ${
+        isLoading ? "pointer-events-none opacity-25" : "opacity-100"
+      }`}
     >
       {SECTIONS.map((section) => {
         const isActive = section === active;

@@ -2,20 +2,23 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { LoadingProvider } from "@/context/LoadingContext";
 import ClickSound from "@/components/ClickSound";
 
-// March (display) para títulos e botões; Italiana para o corpo de texto.
-// Ambas são fontes locais, servidas do próprio domínio. (A Fragille foi
-// descartada por não ter acentos.)
+// March (display) para títulos e botões; Radley para o corpo de texto.
+// Ambas são fontes locais, servidas do próprio domínio.
 const march = localFont({
   src: "./fonts/March-Regular.otf",
   variable: "--font-march",
   display: "swap",
 });
 
-const italiana = localFont({
-  src: "./fonts/Italiana-Regular.ttf",
-  variable: "--font-italiana",
+const radley = localFont({
+  src: [
+    { path: "./fonts/Radley-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Radley-Italic.ttf", weight: "400", style: "italic" },
+  ],
+  variable: "--font-radley",
   display: "swap",
 });
 
@@ -44,7 +47,7 @@ export default function RootLayout({ children }) {
     <html
       lang="pt"
       suppressHydrationWarning
-      className={`${march.variable} ${italiana.variable} h-full antialiased`}
+      className={`${march.variable} ${radley.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
@@ -52,8 +55,10 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-portfolio">
         <ThemeProvider>
           <LanguageProvider>
-            <ClickSound />
-            {children}
+            <LoadingProvider>
+              <ClickSound />
+              {children}
+            </LoadingProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
