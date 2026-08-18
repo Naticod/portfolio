@@ -8,12 +8,15 @@ export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
+    // O portfólio sempre abre no modo claro. O escuro fica a critério da
+    // pessoa: só é usado se ela mesma tiver trocado no botão antes (o que
+    // fica guardado no localStorage). A preferência do sistema é ignorada
+    // de propósito — senão quem usa o computador no escuro entraria no
+    // tema escuro sem ter escolhido.
     const stored = window.localStorage.getItem("theme");
-    const initial =
-      stored ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     // localStorage só existe no browser, então isso só pode ser lido depois da montagem inicial.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(initial);
+    setTheme(stored === "dark" ? "dark" : "light");
   }, []);
 
   useEffect(() => {

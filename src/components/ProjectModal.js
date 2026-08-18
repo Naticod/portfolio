@@ -82,7 +82,7 @@ export default function ProjectModal({ project, labels, onClose }) {
           </h2>
 
           {/* A ficha técnica (cargo, ano, foco) vive na abertura do case. */}
-          <CaseContent project={project} />
+          <CaseContent project={project} outro={labels.outro} />
         </div>
 
         <button

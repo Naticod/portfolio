@@ -34,11 +34,12 @@ export const metadata = {
   },
 };
 
+// Aplica o tema antes da primeira pintura, para a página não "piscar".
+// O padrão é sempre o claro: o escuro só entra se a pessoa tiver escolhido
+// (fica guardado no localStorage). A preferência do sistema é ignorada.
 const themeInitScript = `
 try {
-  var stored = localStorage.getItem('theme');
-  var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  if (theme === 'dark') document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
 } catch (e) {}
 `;
 

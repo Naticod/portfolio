@@ -196,7 +196,7 @@ export default function ProjectsSection() {
             ...current,
             label: current.title ?? `${t.projects.fallbackTitle} ${active + 1}`,
           }}
-          labels={{ close: t.projects.close }}
+          labels={{ close: t.projects.close, outro: t.projects.outro }}
           onClose={() => setIsModalOpen(false)}
         />
       )}

@@ -411,7 +411,7 @@ function CaseIntro({ project }) {
   );
 }
 
-export default function CaseContent({ project }) {
+export default function CaseContent({ project, outro }) {
   if (!project.sections) return null;
 
   return (
@@ -429,6 +429,17 @@ export default function CaseContent({ project }) {
           );
         })}
       </div>
+
+      {/* Fecho do case: convite para conversar. Em March (fonte de display),
+          38px, no lilás #A989AB — mesmo texto em todos os projetos. */}
+      {outro && (
+        <p
+          style={d({ fontSize: 38, lineHeight: 50, marginTop: 8, paddingBottom: 8 })}
+          className="d d-mt d-pb font-display text-[#a989ab] max-lg:text-lg max-lg:leading-snug"
+        >
+          {outro}
+        </p>
+      )}
     </>
   );
 }

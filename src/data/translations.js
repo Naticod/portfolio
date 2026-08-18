@@ -35,6 +35,7 @@ export const translations = {
       next: "Próximo projeto",
       open: "Abrir projeto",
       close: "Fechar projeto",
+      outro: "Para mais detalhes, sobre o projeto, pode me chamar!",
       // Rótulo dos projetos ainda sem título, usado por leitores de tela.
       fallbackTitle: "Projeto",
       // `title`, `note` e `thumb` são opcionais: projeto ainda não
@@ -653,8 +654,10 @@ export const translations = {
     },
     resume: {
       title: "Resume",
-      subtitle: "Baixe meu currículo em PDF",
+      subtitle: "Escolha o idioma e baixe meu currículo em PDF",
       download: "Baixar currículo",
+      downloadPt: "Currículo em português",
+      downloadEn: "Currículo em inglês",
     },
     themeToggle: "Alternar tema",
     languageToggle: "Alternar idioma",
@@ -695,6 +698,7 @@ export const translations = {
       next: "Next project",
       open: "Open project",
       close: "Close project",
+      outro: "Want to know more about this project? Just reach out!",
       fallbackTitle: "Project",
       items: [
         {
@@ -1304,8 +1308,10 @@ export const translations = {
     },
     resume: {
       title: "Resume",
-      subtitle: "Download my resume in PDF",
+      subtitle: "Pick a language and download my resume in PDF",
       download: "Download resume",
+      downloadPt: "Resume in Portuguese",
+      downloadEn: "Resume in English",
     },
     themeToggle: "Toggle theme",
     languageToggle: "Toggle language",
